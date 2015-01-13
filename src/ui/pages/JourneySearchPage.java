@@ -18,6 +18,8 @@ public class JourneySearchPage extends InnerPage {
 
     public SearchResultPage search(Journey journey, List<Passenger> passengers, SearchMode searchMode){
 
+        $("#search_query_reset").click();
+
         setSearchMode(searchMode); //на костылях всё что с ним связано
 
         setOriginLocation(journey.getOriginLocation());
@@ -30,7 +32,7 @@ public class JourneySearchPage extends InnerPage {
         setDatepicker("#search_query_departDate", journey.getOriginDate());
         addPassengers(passengers);
 
-        $("#search_query_search").waitUntil(disappear, 30000);
+        $("#search_query_search").click();
         return page(SearchResultPage.class);
     }
 

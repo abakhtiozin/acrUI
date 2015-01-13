@@ -12,17 +12,27 @@ import static com.codeborne.selenide.Selenide.page;
  */
 public class LoginPage {
 
-    private SelenideElement resellerCode = $("#resellerCode");
-    private SelenideElement userName = $("#username");
-    private SelenideElement password = $("#password");
-    private SelenideElement submitButton = $("button");
+    private SelenideElement getResellerCodeField(){
+        return $("#resellerCode");
+    }
+    private SelenideElement getUserNameField() {
+        return $("#username");
+    }
+    private SelenideElement getPasswordField() {
+        return $("#password");
+    }
+    private void submit(){
+        $("button").click();
+    }
 
     public JourneySearchPage validLogin(Reseller reseller) {
-        resellerCode.setValue(reseller.getResellerCode());
-        userName.setValue(reseller.getUserName());
-        password.setValue(reseller.getPassword());
-        submitButton.click();
-        $(".center.loader").should(disappear); // Waits until element disappears
+        getResellerCodeField().setValue(reseller.getResellerCode());
+        getUserNameField().setValue(reseller.getUserName());
+        getPasswordField().setValue(reseller.getPassword());
+        submit();
+//        $(".center.loader").should(disappear); // Waits until element disappears
         return page(JourneySearchPage.class);
     }
+
+
 }
