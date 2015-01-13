@@ -38,10 +38,10 @@ public class JourneySearchPage extends InnerPage {
 
     private void setSearchMode(SearchMode searchMode) {
         String[] cssSelectors = {"search_query_toRussianSystem", "search_query_toInternationalSystem", "search_query_toLowCostSystem"};
-        for (String cssSelector : cssSelectors){
-            executeJavaScript("document.getElementById(" + "\"" + cssSelector + "\"" + ").removeAttribute(\"checked\")");
-        }
-        if (searchMode.isRussianSystem()){
+//        for (String cssSelector : cssSelectors){
+//            executeJavaScript("document.getElementById(" + "\"" + cssSelector + "\"" + ").removeAttribute(\"checked\")");
+//        }
+        if (!searchMode.isRussianSystem()){
             setCheckedAttribute(cssSelectors[0]);
         }
         if (searchMode.isInternationalSystem()){
@@ -54,7 +54,6 @@ public class JourneySearchPage extends InnerPage {
 
     private void setTime(Journey journey) throws InterruptedException {
         String cssSelector = ".timeSlider";
-        //$( ".timeSlider" ).slider( "option", "values", [ 0, 21 ] )
         $(".ui-slider-handle.ui-state-default.ui-corner-all:nth-of-type(1)").waitUntil(appear, 5000);
         executeJavaScript(String.format("$('%s').slider('option','values',[ '%s', '%s'] )", cssSelector, journey.getOriginTimeFrom(), journey.getOriginTimeTo()));
         actions().dragAndDropBy($(".ui-slider-handle.ui-state-default.ui-corner-all:nth-of-type(1)"), 8, 0).build().perform();

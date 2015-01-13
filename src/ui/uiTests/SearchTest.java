@@ -22,17 +22,17 @@ import static com.codeborne.selenide.Selenide.open;
 public class SearchTest {
 
     private Reseller reseller;
+    private String baseUrl = "http://contentrail.com";
 
     @Before
     public void setReseller(){
-
-        reseller = new Reseller("Andrew-usd","andrew", "1234");
+        reseller = new Reseller("conu","abakhtiozin", "k6D7sJ73bA3");
     }
 
     @Test
     public void userCanLoginByUsername() {
 
-        LoginPage loginPage = open("http://dev.acr.local", LoginPage.class);
+        LoginPage loginPage = open(baseUrl, LoginPage.class);
 
         List<Passenger> passengers = new ArrayList<Passenger>();
         Collections.addAll(passengers,
@@ -40,13 +40,13 @@ public class SearchTest {
                 new Passenger("01.01.1963"),
                 new Passenger("02.07.1962"));
 
-        JourneySearchPage journeySearchPage = loginPage.validLogin(new Reseller("Andrew-usd","andrew", "1234"));
+        JourneySearchPage journeySearchPage = loginPage.validLogin(reseller);
 
         SearchResultPage searchResultPage = journeySearchPage.search(
-                new Journey("Стокгольм","Гетеборг","30.01.2015","3","17"),
+                new Journey("MOW","LED","22.01.2015","0","17"),
                 passengers,
-                new SearchMode().toInternationalSystem());
-        searchResultPage.getTrips();
+                new SearchMode().toRussianSystem());
+        searchResultPage.getTripBaseInfo();
         //searchResultPage.getTrips -private
         //searchResultPage.get
 //
