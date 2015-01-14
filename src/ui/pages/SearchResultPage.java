@@ -28,23 +28,20 @@ public class SearchResultPage {
     public void getTripBaseInfo(){
         setTrips();
         System.out.println(railTripsList.size());
-        test(railTripsList);
+//        test(railTripsList);
         $(By.xpath(".//*[@id='mainContainer']/fieldset/legend")).waitUntil(disappear,30000);
-        System.out.println(railTripsList.get(0).$(By.xpath("//*[@class='changesCell']//button")).getText());
-        System.out.println(railTripsList.get(1).$(By.xpath("//*[@class='changesCell']//button")).getText());
-        System.out.println(railTripsList.get(2).$(By.xpath("//*[@class='changesCell']//button")).getText());
-        System.out.println(railTripsList.get(3).$(By.xpath("//*[@class='changesCell']//button")).getText());
-
     }
 
-    public void test(List<SelenideElement> trips){
-        for (int i = 0; i < trips.size(); i++) {
-            System.out.println(trips.get(i).$(By.xpath("//*[@class='transporterLogoCell']/img")).getAttribute("alt"));
-            System.out.println(trips.get(i).$(By.xpath("//*[@class='changesCell']//button")).getText());
-            System.out.println(trips.get(i).$(By.xpath("//*[@class='departureCell']//strong")).getText() + " " + trips.get(i).$(By.xpath("//*[@class='departureCell']//div[2]")).getText());
-            System.out.println(trips.get(i).$(By.xpath("//*[@class='priceCell priceText']//strong")).getText());
+    public void test(){
+        for (int i = 1; i <= $$(By.xpath(".//*[@id='replacedContent']/table/tbody/tr[@class='trainInfo supplierType-rail']")).size(); i++) {
+            System.out.print(i+") ");
+            System.out.print($(By.xpath(".//tr[@class='trainInfo supplierType-rail']["+ i +"]//*[@class='transporterLogoCell']/img")).getAttribute("alt"));
+            System.out.print(" "+ $(By.xpath(".//tr[@class='trainInfo supplierType-rail'][" + i + "]//*[@class='changesCell']//button")).getText());
+            System.out.print(" "+ $(By.xpath(".//tr[@class='trainInfo supplierType-rail']["+ i +"]//*[@class='departureCell']//strong")).getText());
+            System.out.print(" "+ $(By.xpath(".//tr[@class='trainInfo supplierType-rail']["+ i +"]//*[@class='departureCell']//div[2]")).getText());
+            System.out.print(" "+ $(By.xpath(".//tr[@class='trainInfo supplierType-rail']["+ i +"]//*[@class='priceCell priceText']//strong")).getText());
+            System.out.println();
         }
-//        $$(By.xpath(".//*[@id='replacedContent']/table/tbody/tr[@class='trainInfo supplierType-rail']")).
     }
 
 //    private Trip convertRowToTrip(SelenideElement tripElement){

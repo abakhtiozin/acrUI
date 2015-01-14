@@ -46,7 +46,7 @@ public class SearchTest {
                 new Journey("MOW","LED","22.01.2015","0","17"),
                 passengers,
                 new SearchMode().toRussianSystem());
-        searchResultPage.getTripBaseInfo();
+        searchResultPage.test();
         //searchResultPage.getTrips -private
         //searchResultPage.get
 //
