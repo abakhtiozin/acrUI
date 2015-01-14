@@ -15,8 +15,12 @@ public class Tests {
     @BeforeSuite
     public void setSoap(){
         soapAPI = new SoapAPI();
-        soapAPI.setUrl("http://contentrail.com/ws/SoapApi");
+//        soapAPI.setUrl("http://contentrail.com/ws/SoapApi");
 //        reseller = new Reseller();
+    }
+
+    public static void main(String[] args) {
+
     }
 
 //    @Test
