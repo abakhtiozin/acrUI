@@ -22,11 +22,11 @@ import static com.codeborne.selenide.Selenide.open;
 public class SearchTest {
 
     private Reseller reseller;
-    private String baseUrl = "http://contentrail.com";
+    private String baseUrl = "http://dev.acr.local/";
 
     @Before
     public void setReseller(){
-        reseller = new Reseller("conu","abakhtiozin", "k6D7sJ73bA3");
+        reseller = new Reseller("andrew-usd","andrew", "1234");
     }
 
     @Test
