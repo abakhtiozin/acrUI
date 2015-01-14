@@ -26,6 +26,11 @@ public class Trip {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return "Trip [transporter name=" + transporterName + ", train number=" + trainNumber + "]";
+    }
+
     public Trip withDepartTime(Date departTime){
         this.departTime = departTime;
         return this;
@@ -42,7 +47,7 @@ public class Trip {
         this.duration = duration;
         return this;
     }
-    public Trip withTrainNumber(Double minAmaunt){
+    public Trip withMinAmaunt(Double minAmaunt){
         this.minAmaunt = minAmaunt;
         return this;
     }

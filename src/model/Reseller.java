@@ -10,6 +10,12 @@ public class Reseller {
     private String password;
     private String lang;
 
+    private String currency;
+
+    public String getCurrency() {
+        return currency;
+    }
+
     public String getResellerCode() {
         return resellerCode;
     }

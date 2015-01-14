@@ -1,9 +1,6 @@
 package ui.uiTests;
 
-import model.Journey;
-import model.Passenger;
-import model.Reseller;
-import model.SearchMode;
+import model.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -46,7 +43,12 @@ public class SearchTest {
                 new Journey("MOW","LED","22.01.2015","0","17"),
                 passengers,
                 new SearchMode().toRussianSystem());
-        searchResultPage.test();
+
+        List<Trip> trips = searchResultPage.test();
+        trips.
+        for (Trip trip : trips){
+            System.out.println(trip);
+        }
         //searchResultPage.getTrips -private
         //searchResultPage.get
 //
