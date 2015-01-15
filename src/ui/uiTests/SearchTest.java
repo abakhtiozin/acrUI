@@ -1,6 +1,7 @@
 package ui.uiTests;
 
 import model.*;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -37,14 +38,18 @@ public class SearchTest {
                 new Passenger("01.01.1963"),
                 new Passenger("02.07.1962"));
 
+        Journey journey = new Journey("MOW","LED","22.01.2015","7","17");
+        SearchMode searchMode = new SearchMode().toInternationalSystem();
+
         JourneySearchPage journeySearchPage = loginPage.validLogin(reseller);
 
         SearchResultPage searchResultPage = journeySearchPage.search(
-                new Journey("GOT","STO","22.01.2015","0","17"),
+                journey,
                 passengers,
-                new SearchMode().toInternationalSystem());
+                searchMode);
 
         List<Trip> trips = searchResultPage.test();
+        Assert.assertTrue("Ничего не найдено по направлению " + journey.getOriginLocation() + " - " + journey.getDestinationLocation(), trips.size()>0);
 
         for (Trip trip : trips){
             System.out.println(trip);

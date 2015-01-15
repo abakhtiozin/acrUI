@@ -20,13 +20,13 @@ public class Tests {
     }
 
     public static void main(String[] args) {
-<<<<<<< HEAD
+
         String s = "1 123.36 USD";
         Double d = Double.parseDouble(s.replaceAll("[a-zA-Z]+", ""));
         System.out.println(d);
-=======
 
->>>>>>> 1ac5c10f86595140f01c537135ed845245b020ce
+
+
     }
 
 //    @Test
