@@ -38,7 +38,7 @@ public class SearchTest {
                 new Passenger("01.01.1963"),
                 new Passenger("02.07.1962"));
 
-        Journey journey = new Journey("MOW","LED","22.01.2015","7","17");
+        Journey journey = new Journey("MOW","LED","22.01.2015",7,17);
         SearchMode searchMode = new SearchMode().toInternationalSystem();
 
         JourneySearchPage journeySearchPage = loginPage.validLogin(reseller);

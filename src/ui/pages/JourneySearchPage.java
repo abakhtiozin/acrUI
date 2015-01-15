@@ -1,9 +1,11 @@
 package ui.pages;
 
+import com.codeborne.selenide.JQuery;
 import model.Journey;
 import model.Passenger;
 import model.SearchMode;
 import org.openqa.selenium.By;
+import ui.util.JQueryWorker;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -16,6 +18,12 @@ import java.util.List;
  */
 public class JourneySearchPage extends InnerPage {
 
+    private JQueryWorker jQueryWorker;
+    public JourneySearchPage(){
+        jQueryWorker = new JQueryWorker();
+    }
+
+
     public SearchResultPage search(Journey journey, List<Passenger> passengers, SearchMode searchMode){
 
         $("#search_query_reset").click();
@@ -24,12 +32,9 @@ public class JourneySearchPage extends InnerPage {
 
         setOriginLocation(journey.getOriginLocation());
         setDestinationLocation(journey.getDestinationLocation());
-        try {
-            setTime(journey);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        setDatepicker("#search_query_departDate", journey.getOriginDate());
+        setTime(journey.getOriginTimeFrom(), journey.getOriginTimeTo());
+
+        jQueryWorker.setDatepicker("#search_query_departDate", journey.getOriginDate());
         addPassengers(passengers);
 
         $("#search_query_search").click();
@@ -52,35 +57,30 @@ public class JourneySearchPage extends InnerPage {
         }
     }
 
-    private void setTime(Journey journey) throws InterruptedException {
+    private void setTime(int originTimeFrom, int originTimeTo) {
         String cssSelector = ".timeSlider";
         $(".ui-slider-handle.ui-state-default.ui-corner-all:nth-of-type(1)").waitUntil(appear, 5000);
-        executeJavaScript(String.format("$('%s').slider('option','values',[ '%s', '%s'] )", cssSelector, journey.getOriginTimeFrom(), journey.getOriginTimeTo()));
+        executeJavaScript(String.format("$('%s').slider('option','values',[ '%s', '%s'] )", cssSelector, originTimeFrom, originTimeTo));
         actions().dragAndDropBy($(".ui-slider-handle.ui-state-default.ui-corner-all:nth-of-type(1)"), 8, 0).build().perform();
         actions().dragAndDropBy($(".ui-slider-handle.ui-state-default.ui-corner-all:nth-of-type(1)"), -8, 0).build().perform();
     }
 
     //inner methods
     private void setOriginLocation(String originLocation) {
-
         $("#search_query_departLocationName").setValue(originLocation);
         $(By.xpath(".//*[@class='ui-menu-item'][1]//*[contains(.,'" + originLocation + "')]")).waitUntil(appear, 5000).click();
     }
+
 
     private void setDestinationLocation(String destinationLocation) {
         $("#search_query_arrivalLocationName").setValue(destinationLocation);
         $(By.xpath(".//*[@class='ui-menu-item'][1]//*[contains(.,'"+destinationLocation+"')]")).waitUntil(appear, 5000).click();
     }
 
-    //TODO Вынести этот медот куда-то вверх, в общий класс, + он не должен быть виден в тестах
-    //метод для удобной работы с jQuery datepicker
-    private void setDatepicker(String cssSelector, String date) {
-        $(cssSelector).waitUntil(appear, 5000);
-        executeJavaScript(String.format("$('%s').datepicker('setDate', '%s')", cssSelector, date));
-    }
+
 
     private void addPassenger(Passenger passenger, String cssSelector ){
-        setDatepicker(cssSelector, passenger.getBirthDate());
+        jQueryWorker.setDatepicker(cssSelector, passenger.getBirthDate());
     }
 
     private void addPassengers(List<Passenger> passengers){

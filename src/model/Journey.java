@@ -7,19 +7,19 @@ public class Journey {
 
     private String originLocation;
     private String originDate;
-    private String originTimeFrom;
-    private String originTimeTo;
+    private int originTimeFrom;
+    private int originTimeTo;
     private String destinationLocation;
 
     public String getOriginDate() {
         return originDate;
     }
 
-    public String getOriginTimeFrom() {
+    public int getOriginTimeFrom() {
         return originTimeFrom;
     }
 
-    public String getOriginTimeTo() {
+    public int getOriginTimeTo() {
         return originTimeTo;
     }
 
@@ -37,7 +37,7 @@ public class Journey {
 //        this.destinationLocation = destinationLocation;
 //    }
 
-    public Journey(String originLocation, String destinationLocation, String originDate, String originTimeFrom, String originTimeTo) {
+    public Journey(String originLocation, String destinationLocation, String originDate, int originTimeFrom, int originTimeTo) {
         this.originLocation = originLocation;
         this.originDate = originDate;
         this.originTimeFrom = originTimeFrom;
