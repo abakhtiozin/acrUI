@@ -105,7 +105,7 @@ public class JourneySearchPage extends InnerPage {
     private void setCheckedAttribute(String cssSelector){
         //метод удаляет заданому элементу атрибут checked, потом кликает на него
         $("#"+cssSelector).click();
-        $("#"+cssSelector).shouldHave(attribute("checked"));
+//        $("#"+cssSelector).shouldBe();
     }
 
 

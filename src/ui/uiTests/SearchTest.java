@@ -40,17 +40,15 @@ public class SearchTest {
         JourneySearchPage journeySearchPage = loginPage.validLogin(reseller);
 
         SearchResultPage searchResultPage = journeySearchPage.search(
-                new Journey("MOW","LED","22.01.2015","0","17"),
+                new Journey("GOT","STO","22.01.2015","0","17"),
                 passengers,
-                new SearchMode().toRussianSystem());
+                new SearchMode().toInternationalSystem());
 
         List<Trip> trips = searchResultPage.test();
-        trips.
+
         for (Trip trip : trips){
             System.out.println(trip);
         }
-        //searchResultPage.getTrips -private
-        //searchResultPage.get
-//
+
     }
 }

@@ -30,30 +30,18 @@ public class SearchResultPage {
     }
 
     public void getTripBaseInfo(){
-        setTrips();
-        System.out.println(railTripsList.size());
-//        test(railTripsList);
+
         $(By.xpath(".//*[@id='mainContainer']/fieldset/legend")).waitUntil(disappear,30000);
     }
 
     public List<Trip> test(){
-//        $$(By.xpath(".//*[@id='replacedContent']/table/tbody/tr[@class='trainInfo supplierType-rail']")).shouldHaveSize();
         List<Trip> trips = new ArrayList<Trip>();
-        new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
-        Date curDate = new Date();
-
         for (int i = 1; i <= $$(By.xpath(".//*[@id='replacedContent']/table/tbody/tr[@class='trainInfo supplierType-rail']")).size(); i++) {
-            System.out.print(i + ") ");
-            System.out.print($(By.xpath(".//tr[@class='trainInfo supplierType-rail']["+ i +"]//*[@class='transporterLogoCell']/img")).getAttribute("alt"));
-            System.out.print(" "+ $(By.xpath(".//tr[@class='trainInfo supplierType-rail'][" + i + "]//*[@class='changesCell']//button")).getText());
-            System.out.print(" "+ $(By.xpath(".//tr[@class='trainInfo supplierType-rail']["+ i +"]//*[@class='departureCell']//strong")).getText());
-            System.out.print(" "+ $(By.xpath(".//tr[@class='trainInfo supplierType-rail']["+ i +"]//*[@class='departureCell']//div[2]")).getText());
-            System.out.print(" "+ $(By.xpath(".//tr[@class='trainInfo supplierType-rail']["+ i +"]//*[@class='priceCell priceText']//strong")).getText());
-            System.out.println();
             trips.add(i-1, new Trip()
                     .withTransporterName($(By.xpath(".//tr[@class='trainInfo supplierType-rail'][" + i + "]//*[@class='transporterLogoCell']/img")).getAttribute("alt"))
                     .withTrainNumber($(By.xpath(".//tr[@class='trainInfo supplierType-rail'][" + i + "]//*[@class='changesCell']//button")).getText())
-                    .withDepartTime()
+                    .withDepartTime($(By.xpath(".//tr[@class='trainInfo supplierType-rail']["+ i +"]//*[@class='departureCell']//div[2]")).getText() + " " + $(By.xpath(".//tr[@class='trainInfo supplierType-rail']["+ i +"]//*[@class='departureCell']//strong")).getText())
+                    .withMinAmaunt($(By.xpath(".//tr[@class='trainInfo supplierType-rail']["+ i +"]//*[@class='priceCell priceText']//strong")).getText())
                     );
         }
         return trips;

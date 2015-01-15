@@ -19,6 +19,12 @@ public class Tests {
 //        reseller = new Reseller();
     }
 
+    public static void main(String[] args) {
+        String s = "1 123.36 USD";
+        Double d = Double.parseDouble(s.replaceAll("[a-zA-Z]+", ""));
+        System.out.println(d);
+    }
+
 //    @Test
 //    public void responseJourneySearchTest() {
 //        journey = new Journey().withOriginCode("2000000").withOriginDate("2015.01.25").withOriginTimeFrom("00:00").withOriginTimeTo("23:00").withDestinationCode("2004000");
