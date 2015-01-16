@@ -1,17 +1,12 @@
 package ui.pages;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.executeJavaScript;
+
 import com.codeborne.selenide.SelenideElement;
-import model.Reseller;
 import model.Trip;
 import org.openqa.selenium.By;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -20,31 +15,35 @@ import static com.codeborne.selenide.Selenide.$$;
 /**
  * Created by AA on 07.01.2015.
  */
-public class SearchResultPage {
+public class SearchResultPage extends InnerPage {
 
     private List<SelenideElement> railTripsList;
 
-    private void setTrips(){
+    private void setTrips() {
         System.out.println("кол-во жд предложений: " + $$(By.xpath(".//*[@id='replacedContent']/table/tbody/tr[@class='trainInfo supplierType-rail']")).size());
         this.railTripsList = $$(By.xpath(".//*[@id='replacedContent']/table/tbody/tr[@class='trainInfo supplierType-rail']"));
     }
 
-    public void getTripBaseInfo(){
-
-        $(By.xpath(".//*[@id='mainContainer']/fieldset/legend")).waitUntil(disappear,30000);
+    public void getTripBaseInfo() {
+        $(By.xpath(".//*[@id='mainContainer']/fieldset/legend")).waitUntil(disappear, 30000);
     }
 
-    public List<Trip> test(){
+    public List<Trip> getRailTrips() {
         List<Trip> trips = new ArrayList<Trip>();
         for (int i = 1; i <= $$(By.xpath(".//*[@id='replacedContent']/table/tbody/tr[@class='trainInfo supplierType-rail']")).size(); i++) {
-            trips.add(i-1, new Trip()
-                    .withTransporterName($(By.xpath(".//tr[@class='trainInfo supplierType-rail'][" + i + "]//*[@class='transporterLogoCell']/img")).getAttribute("alt"))
-                    .withTrainNumber($(By.xpath(".//tr[@class='trainInfo supplierType-rail'][" + i + "]//*[@class='changesCell']//button")).getText())
-                    .withDepartTime($(By.xpath(".//tr[@class='trainInfo supplierType-rail']["+ i +"]//*[@class='departureCell']//div[2]")).getText() + " " + $(By.xpath(".//tr[@class='trainInfo supplierType-rail']["+ i +"]//*[@class='departureCell']//strong")).getText())
-                    .withMinAmaunt($(By.xpath(".//tr[@class='trainInfo supplierType-rail']["+ i +"]//*[@class='priceCell priceText']//strong")).getText())
-                    );
+            trips.add(i - 1, new Trip()
+                            .withTransporterName($(By.xpath(".//tr[@class='trainInfo supplierType-rail'][" + i + "]//*[@class='transporterLogoCell']/img")).getAttribute("alt"))
+                            .withTrainNumber($(By.xpath(".//tr[@class='trainInfo supplierType-rail'][" + i + "]//*[@class='changesCell']//button")).getText())
+                            .withDepartTime($(By.xpath(".//tr[@class='trainInfo supplierType-rail'][" + i + "]//*[@class='departureCell']//div[2]")).getText() + " " + $(By.xpath(".//tr[@class='trainInfo supplierType-rail'][" + i + "]//*[@class='departureCell']//strong")).getText())
+                            .withMinAmaunt($(By.xpath(".//tr[@class='trainInfo supplierType-rail'][" + i + "]//*[@class='priceCell priceText']//strong")).getText())
+            );
         }
         return trips;
+    }
+
+    @Override
+    public boolean onThisPage() {
+        return false;
     }
 
 //    private Trip convertRowToTrip(SelenideElement tripElement){

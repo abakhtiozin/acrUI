@@ -14,9 +14,9 @@ public class DbItem {
     private static final String DELETE_USERS = "DELETE FROM users\n"+
             "WHERE username in ('Guest','Editor','admin2');";
     private static final String INSERT_USERS = "INSERT INTO users (email,username, password, permission) \n"+
-            "VALUES ('Editor@test.com', 'Editor', '098f6bcd4621d373cade4e832627b4f6', 1),\n"+
-            "('Guest@test.com', 'Guest', '098f6bcd4621d373cade4e832627b4f6', 0),\n"+
-            "('admin2@test.com', 'admin2', '098f6bcd4621d373cade4e832627b4f6', 2);";
+            "VALUES ('Editor@getRailTrips.com', 'Editor', '098f6bcd4621d373cade4e832627b4f6', 1),\n"+
+            "('Guest@getRailTrips.com', 'Guest', '098f6bcd4621d373cade4e832627b4f6', 0),\n"+
+            "('admin2@getRailTrips.com', 'admin2', '098f6bcd4621d373cade4e832627b4f6', 2);";
     private static final String CURRENCY_RATE_QUERY = "SELECT `value` FROM `contentinn`.`currency_rate` WHERE currency = ? AND currency_rate_group_id = (SELECT id FROM `contentinn`.`currency_rate_group` WHERE add_admin_user_id IS NOT NULL ORDER BY Id DESC LIMIT 1) ORDER BY id DESC LIMIT 1;";
     private static final String TRANSPORTER_MIN_PRICE = "SELECT \n" +
             "MIN(minTransporterPrice) AS price\n" +

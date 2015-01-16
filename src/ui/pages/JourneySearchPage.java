@@ -18,6 +18,7 @@ import java.util.List;
  */
 public class JourneySearchPage extends InnerPage {
 
+<<<<<<< HEAD
     private JQueryWorker jQueryWorker;
     public JourneySearchPage(){
         jQueryWorker = new JQueryWorker();
@@ -25,6 +26,9 @@ public class JourneySearchPage extends InnerPage {
 
 
     public SearchResultPage search(Journey journey, List<Passenger> passengers, SearchMode searchMode){
+=======
+    public SearchResultPage search(Journey journey, List<Passenger> passengers, SearchMode searchMode) {
+>>>>>>> e271c07fa6a951b9464a8bfee194b8b80ac73c43
 
         $("#search_query_reset").click();
 
@@ -46,13 +50,13 @@ public class JourneySearchPage extends InnerPage {
 //        for (String cssSelector : cssSelectors){
 //            executeJavaScript("document.getElementById(" + "\"" + cssSelector + "\"" + ").removeAttribute(\"checked\")");
 //        }
-        if (!searchMode.isRussianSystem()){
+        if (!searchMode.isRussianSystem()) {
             setCheckedAttribute(cssSelectors[0]);
         }
-        if (searchMode.isInternationalSystem()){
+        if (searchMode.isInternationalSystem()) {
             setCheckedAttribute(cssSelectors[1]);
         }
-        if (searchMode.isLowCostSystem()){
+        if (searchMode.isLowCostSystem()) {
             setCheckedAttribute(cssSelectors[2]);
         }
     }
@@ -74,41 +78,49 @@ public class JourneySearchPage extends InnerPage {
 
     private void setDestinationLocation(String destinationLocation) {
         $("#search_query_arrivalLocationName").setValue(destinationLocation);
-        $(By.xpath(".//*[@class='ui-menu-item'][1]//*[contains(.,'"+destinationLocation+"')]")).waitUntil(appear, 5000).click();
+        $(By.xpath(".//*[@class='ui-menu-item'][1]//*[contains(.,'" + destinationLocation + "')]")).waitUntil(appear, 5000).click();
     }
 
 
 
+<<<<<<< HEAD
     private void addPassenger(Passenger passenger, String cssSelector ){
         jQueryWorker.setDatepicker(cssSelector, passenger.getBirthDate());
+=======
+    private void addPassenger(Passenger passenger, String cssSelector) {
+        setDatepicker(cssSelector, passenger.getBirthDate());
+>>>>>>> e271c07fa6a951b9464a8bfee194b8b80ac73c43
     }
 
-    private void addPassengers(List<Passenger> passengers){
+    private void addPassengers(List<Passenger> passengers) {
         // локатор на элементы birthDate
         String cssDatePickerElements = "div.control-group input.span12.birthDate.hasDatepicker";
         // если пассажиров в поездке больше чем один то
-        if (passengers.size() > 1){
+        if (passengers.size() > 1) {
             for (int i = 0; i < passengers.size(); i++) {
-                if (i != 0){
+                if (i != 0) {
                     //если это не первый пассажир то нажимаем кнопку добавить
                     $(".addPassenger.btn.btn-inverse").click();
                 }
                 // Первый аргумент - берём данные пассажира из колекции
                 // Второй аргумент - после нажатия на кнопку добавить, появился ещё один элемент датапикер, находим этот элемент и берём атрибут Id
-                addPassenger(passengers.get(i), "#"+$$(cssDatePickerElements).get(i).getAttribute("id"));
+                addPassenger(passengers.get(i), "#" + $$(cssDatePickerElements).get(i).getAttribute("id"));
             }
         } else {
-            addPassenger(passengers.get(0), "#"+$$(cssDatePickerElements).get(0).getAttribute("id"));
+            addPassenger(passengers.get(0), "#" + $$(cssDatePickerElements).get(0).getAttribute("id"));
         }
     }
 
-    private void setCheckedAttribute(String cssSelector){
+    private void setCheckedAttribute(String cssSelector) {
         //метод удаляет заданому элементу атрибут checked, потом кликает на него
-        $("#"+cssSelector).click();
+        $("#" + cssSelector).click();
 //        $("#"+cssSelector).shouldBe();
     }
 
 
-
+    @Override
+    public boolean onThisPage() {
+        return $(By.xpath(".//*[@id='replacedContent']/form[@name='search_query']")).isDisplayed();
+    }
 }
 
