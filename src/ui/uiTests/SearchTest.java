@@ -24,12 +24,11 @@ public class SearchTest {
 
     @Before
     public void setReseller(){
-        reseller = new Reseller("andrew-usd","andrew", "1234");
+        reseller = new Reseller("","", "");
     }
 
     @Test
     public void userCanLoginByUsername() {
-
         LoginPage loginPage = open(baseUrl, LoginPage.class);
         List<Passenger> passengers = new ArrayList<Passenger>();
         Collections.addAll(passengers,
@@ -37,8 +36,8 @@ public class SearchTest {
                 new Passenger("01.01.1963"),
                 new Passenger("02.07.1962"));
 
-        Journey journey = new Journey("MOW","LED","22.01.2015",7,17);
-        SearchMode searchMode = new SearchMode().toInternationalSystem();
+        Journey journey = new Journey("MOW","LED","27.01.2015",7,17);
+        SearchMode searchMode = new SearchMode().toRussianSystem();
         JourneySearchPage journeySearchPage = loginPage.validLogin(reseller);
         SearchResultPage searchResultPage = journeySearchPage.search(
                 journey,
@@ -50,6 +49,21 @@ public class SearchTest {
         for (Trip trip : trips){
             System.out.println(trip);
         }
+    }
+
+    @Test
+    public void deletingPassengersTest(){
+        LoginPage loginPage = open(baseUrl, LoginPage.class);
+        List<Passenger> passengers = new ArrayList<Passenger>();
+        Collections.addAll(passengers,
+                new Passenger("12.12.1990"),
+                new Passenger("01.01.1963"),
+                new Passenger("02.07.1962"));
+        JourneySearchPage journeySearchPage = loginPage.validLogin(reseller);
+        journeySearchPage.addPassengers(passengers);
+        journeySearchPage.deletePassenger(passengers.get(1));
+        passengers.remove(1);
+        Assert.assertTrue(journeySearchPage.compareFieldsToPassengers(passengers));
     }
 
     @Test

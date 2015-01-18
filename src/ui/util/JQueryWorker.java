@@ -9,12 +9,19 @@ import static com.codeborne.selenide.Selenide.executeJavaScript;
  */
 public class JQueryWorker {
 
-    //TODO Вынести этот медот куда-то вверх, в общий класс, + он не должен быть виден в тестах
+
     //метод для удобной работы с jQuery datepicker
     public void setDatepicker(String cssSelector, String date) {
         $(cssSelector).waitUntil(appear, 5000);
         executeJavaScript(String.format("$('%s').datepicker('setDate', '%s')", cssSelector, date));
     }
+
+    public void setCheckBoxValue(String cssSelector, boolean checked){
+        executeJavaScript("$( \""+ cssSelector +"\" ).prop( \"checked\", "+ checked +" );");
+    }
+//    public void setUnchecked(String cssSelector){
+//        executeJavaScript("$( \"#"+ cssSelector +"\" ).prop( \"checked\", false );");
+//    }
 
 
 }

@@ -32,4 +32,6 @@ public class SearchMode {
         this.toLowCostSystem = true;
         return this;
     }
+
+
 }

@@ -1,6 +1,6 @@
 package ui.pages;
 
-import com.codeborne.selenide.JQuery;
+import com.codeborne.selenide.SelenideElement;
 import model.Journey;
 import model.Passenger;
 import model.SearchMode;
@@ -18,47 +18,125 @@ import java.util.List;
  */
 public class JourneySearchPage extends InnerPage {
 
-<<<<<<< HEAD
+
     private JQueryWorker jQueryWorker;
+
     public JourneySearchPage(){
         jQueryWorker = new JQueryWorker();
     }
 
+    private SelenideElement resetButton(){
+        return $("#search_query_reset");
+    }
+    private SelenideElement searchButton(){
+        return $("#search_query_search");
+    }
+    private SelenideElement departmentDateField(){
+        return $("#search_query_departDate");
+    }
+    private SelenideElement destinationLocationField() {
+        return $("#search_query_arrivalLocationName");
+    }
+    private SelenideElement originLocationField() {
+        return $("#search_query_departLocationName");
+    }
+    private List<SelenideElement> passengerBirthDateFields(){
+        return $$("div.control-group input.span12.birthDate.hasDatepicker");
+    }
+    private SelenideElement toRussianCheckBox(){
+        return $("#search_query_toRussianSystem");
+    }
+    private SelenideElement toInternationalCheckBox(){
+        return $("#search_query_toInternationalSystem");
+    }
+    private SelenideElement toLowCostCheckBox(){
+        return $("#search_query_toLowCostSystem");
+    }
+
+    private List<SelenideElement> deletePassengerButtons(){
+        return $$(".deletePassenger.btn");
+    }
+
+    public JourneySearchPage deletePassenger(Passenger passenger){
+        for (int i = 1; i < passengerBirthDateFields().size(); i++) {
+            if (passengerBirthDateFields().get(i).val().equals(passenger.getBirthDate())){
+                deletePassengerButtons().get(i-1).click();
+                $("#deletePassengerModal>div.modal-footer>button.btn.btn-primary.yes").waitUntil(appear, 5000).click();
+            }
+        }
+        return page(JourneySearchPage.class);
+    }
+
+    public boolean compareFieldsToPassengers(List<Passenger> passengers){
+        for (int i = 1; i < passengers.size(); i++) {
+            if (!passengers.get(i).getBirthDate().equals(passengerBirthDateFields().get(i).val())){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*
+    TODO Тест сохранения предыдущего поиска
+    Сценарий:
+    1) Сделать сёрч
+    2) вернутся назад через главное меню
+    Ожидаемый результат: данные на форме сёрча остались
+     */
+
+    /*
+    TODO тест кнопки сброс
+    Сценарий:
+    1) Сделать сёрч
+    2) вернутся назад через главное меню
+    3) нажать на кнопку Сброс
+    Ожидаемый результат: все поля пустые
+     */
+
+     /*
+    TODO тест удаление пассажира на форме
+    Сценарий:
+    1) Добавить пассажиров
+    2) удалить пассажира(ов)
+    Ожидаемый результат: удалились те пассажиры на которых была нажата кнопка Удалить
+     */
+
+         /*
+    TODO тест удаление пассажира на форме
+    Сценарий:
+    1) Добавить пассажиров
+    2) удалить пассажира(ов)
+    3) сделать поиск
+    4) сделать заказ
+    Ожидаемый результат: кол-во пассажиров и их данные соответствуют тем данным что были при поиске
+     */
 
     public SearchResultPage search(Journey journey, List<Passenger> passengers, SearchMode searchMode){
-=======
-    public SearchResultPage search(Journey journey, List<Passenger> passengers, SearchMode searchMode) {
->>>>>>> e271c07fa6a951b9464a8bfee194b8b80ac73c43
 
-        $("#search_query_reset").click();
-
-        setSearchMode(searchMode); //на костылях всё что с ним связано
-
+        resetButton().click();
+        setSearchMode(searchMode);
         setOriginLocation(journey.getOriginLocation());
         setDestinationLocation(journey.getDestinationLocation());
         setTime(journey.getOriginTimeFrom(), journey.getOriginTimeTo());
 
-        jQueryWorker.setDatepicker("#search_query_departDate", journey.getOriginDate());
+        jQueryWorker.setDatepicker("#" + departmentDateField().getAttribute("id"), journey.getOriginDate());
         addPassengers(passengers);
 
-        $("#search_query_search").click();
+        searchButton().click();
         return page(SearchResultPage.class);
     }
 
+    //set checkboxs
     private void setSearchMode(SearchMode searchMode) {
-        String[] cssSelectors = {"search_query_toRussianSystem", "search_query_toInternationalSystem", "search_query_toLowCostSystem"};
-//        for (String cssSelector : cssSelectors){
-//            executeJavaScript("document.getElementById(" + "\"" + cssSelector + "\"" + ").removeAttribute(\"checked\")");
-//        }
-        if (!searchMode.isRussianSystem()) {
-            setCheckedAttribute(cssSelectors[0]);
-        }
+        if (searchMode.isRussianSystem()) {
+            jQueryWorker.setCheckBoxValue("#"+toRussianCheckBox().getAttribute("id"), true);
+        } else jQueryWorker.setCheckBoxValue("#"+toRussianCheckBox().getAttribute("id"), false);
         if (searchMode.isInternationalSystem()) {
-            setCheckedAttribute(cssSelectors[1]);
-        }
+            jQueryWorker.setCheckBoxValue("#"+toInternationalCheckBox().getAttribute("id"), true);
+        } else jQueryWorker.setCheckBoxValue("#"+toInternationalCheckBox().getAttribute("id"), false);
         if (searchMode.isLowCostSystem()) {
-            setCheckedAttribute(cssSelectors[2]);
-        }
+            jQueryWorker.setCheckBoxValue("#"+toLowCostCheckBox().getAttribute("id"), true);
+        } else jQueryWorker.setCheckBoxValue("#"+toLowCostCheckBox().getAttribute("id"), false);
     }
 
     private void setTime(int originTimeFrom, int originTimeTo) {
@@ -71,30 +149,23 @@ public class JourneySearchPage extends InnerPage {
 
     //inner methods
     private void setOriginLocation(String originLocation) {
-        $("#search_query_departLocationName").setValue(originLocation);
+        originLocationField().setValue(originLocation);
         $(By.xpath(".//*[@class='ui-menu-item'][1]//*[contains(.,'" + originLocation + "')]")).waitUntil(appear, 5000).click();
     }
 
-
     private void setDestinationLocation(String destinationLocation) {
-        $("#search_query_arrivalLocationName").setValue(destinationLocation);
+        destinationLocationField().setValue(destinationLocation);
         $(By.xpath(".//*[@class='ui-menu-item'][1]//*[contains(.,'" + destinationLocation + "')]")).waitUntil(appear, 5000).click();
     }
 
-
-
-<<<<<<< HEAD
     private void addPassenger(Passenger passenger, String cssSelector ){
-        jQueryWorker.setDatepicker(cssSelector, passenger.getBirthDate());
-=======
-    private void addPassenger(Passenger passenger, String cssSelector) {
-        setDatepicker(cssSelector, passenger.getBirthDate());
->>>>>>> e271c07fa6a951b9464a8bfee194b8b80ac73c43
+        jQueryWorker.setDatepicker("#" + cssSelector, passenger.getBirthDate());
     }
 
-    private void addPassengers(List<Passenger> passengers) {
+    public void addPassengers(List<Passenger> passengers) {
         // локатор на элементы birthDate
-        String cssDatePickerElements = "div.control-group input.span12.birthDate.hasDatepicker";
+//        String cssDatePickerElements = "div.control-group input.span12.birthDate.hasDatepicker";
+
         // если пассажиров в поездке больше чем один то
         if (passengers.size() > 1) {
             for (int i = 0; i < passengers.size(); i++) {
@@ -104,19 +175,12 @@ public class JourneySearchPage extends InnerPage {
                 }
                 // Первый аргумент - берём данные пассажира из колекции
                 // Второй аргумент - после нажатия на кнопку добавить, появился ещё один элемент датапикер, находим этот элемент и берём атрибут Id
-                addPassenger(passengers.get(i), "#" + $$(cssDatePickerElements).get(i).getAttribute("id"));
+                addPassenger(passengers.get(i), passengerBirthDateFields().get(i).getAttribute("id"));
             }
         } else {
-            addPassenger(passengers.get(0), "#" + $$(cssDatePickerElements).get(0).getAttribute("id"));
+            addPassenger(passengers.get(0), passengerBirthDateFields().get(0).getAttribute("id"));
         }
     }
-
-    private void setCheckedAttribute(String cssSelector) {
-        //метод удаляет заданому элементу атрибут checked, потом кликает на него
-        $("#" + cssSelector).click();
-//        $("#"+cssSelector).shouldBe();
-    }
-
 
     @Override
     public boolean onThisPage() {

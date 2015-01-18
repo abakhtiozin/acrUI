@@ -29,6 +29,8 @@ public class Trip {
         return "Trip [transporter name=" + transporterName + ", train number=" + trainNumber + ", departure time=" + departTime + ", min amount=" + minAmount +"]";
     }
 
+
+
     public Trip withDepartTime(String departTime){
         this.departTime = departTime;
         return this;
