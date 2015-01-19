@@ -21,9 +21,12 @@ public class Tests {
 
     public static void main(String[] args) {
 
-        String s = "1 123.36 USD";
-        Double d = Double.parseDouble(s.replaceAll("[a-zA-Z]+", ""));
-        System.out.println(d);
+//        String s = "1 123.36 USD";
+//        Double d = Double.parseDouble(s.replaceAll("[a-zA-Z]+", ""));
+//        System.out.println(d);
+        
+        DbItem dbItem = DbItem.get_instance();
+        System.out.println(dbItem.getCurrencyRate("EUR"));
 
 
 

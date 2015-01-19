@@ -19,5 +19,6 @@
     <orderEntry type="library" name="mysql-connector-java-5.1.34" level="project" />
     <orderEntry type="library" name="selenide-2.1" level="project" />
     <orderEntry type="library" name="selenium-server-standalone-2.44.0" level="project" />
+    <orderEntry type="module" module-name="db" />
   </component>
 </module>
