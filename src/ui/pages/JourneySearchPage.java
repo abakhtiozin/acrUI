@@ -67,6 +67,11 @@ public class JourneySearchPage extends InnerPage {
         return page(JourneySearchPage.class);
     }
 
+    public JourneySearchPage pressResetButton(){
+        resetButton().click();
+        return page(JourneySearchPage.class);
+    }
+
     public boolean compareFieldsToPassengers(List<Passenger> passengers){
         for (int i = 1; i < passengers.size(); i++) {
             if (!passengers.get(i).getBirthDate().equals(passengerBirthDateFields().get(i).val())){

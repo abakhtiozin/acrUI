@@ -41,6 +41,10 @@ public class SearchResultPage extends InnerPage {
         return trips;
     }
 
+    public chooseTripByNumber(String number){
+
+    }
+
     @Override
     public boolean onThisPage() {
         return false;

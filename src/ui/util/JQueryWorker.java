@@ -19,9 +19,7 @@ public class JQueryWorker {
     public void setCheckBoxValue(String cssSelector, boolean checked){
         executeJavaScript("$( \""+ cssSelector +"\" ).prop( \"checked\", "+ checked +" );");
     }
-//    public void setUnchecked(String cssSelector){
-//        executeJavaScript("$( \"#"+ cssSelector +"\" ).prop( \"checked\", false );");
-//    }
+
 
 
 }

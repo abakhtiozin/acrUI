@@ -3,7 +3,7 @@ package ui.pages;
 /**
  * Created by AA on 07.01.2015.
  */
-public class PreBookingPage extends InnerPage {
+public abstract class PreBookingPage extends InnerPage {
     /*
     TODO тест удаление пассажира на форме
     Сценарий:
