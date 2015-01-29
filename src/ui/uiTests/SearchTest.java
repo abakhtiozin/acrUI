@@ -1,17 +1,19 @@
 package ui.uiTests;
 
+import com.codeborne.selenide.Condition;
 import model.*;
 import org.junit.Assert;
 
 
+import org.openqa.selenium.By;
 import org.testng.annotations.*;
-import ui.pages.JourneySearchPage;
-import ui.pages.LoginPage;
-import ui.pages.OrdersPage;
-import ui.pages.SearchResultPage;
+import ui.pages.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 
@@ -53,35 +55,27 @@ public class SearchTest {
     }
 
 
-    @Test(testName = "CalcCurrency", dataProvider = "testData")
-    public void userCanLoginByUsername(String from, String to) {
-
+    @Test
+    public void userCanLoginByUsername() {
         List<Passenger> passengers = new ArrayList<Passenger>();
         Collections.addAll(passengers,
                 new Passenger("12.12.1990"),
                 new Passenger("01.01.1963"),
-                new Passenger("01.01.1963"),
-                new Passenger("01.01.1963"),
-                new Passenger("01.01.1963"),
-                new Passenger("01.01.1963"),
-                new Passenger("01.01.1963"),
-                new Passenger("01.01.1963"),
                 new Passenger("02.07.1962")
         );
-        Journey journey = new Journey(from, to,"10.02.2015",0,24);
-        SearchMode searchMode = new SearchMode().toInternationalSystem();
-
+        Journey journey = new Journey("MOW", "LED","10.02.2015",0,24);
+        SearchMode searchMode = new SearchMode().toRussianSystem();
         SearchResultPage searchResultPage = journeySearchPage.search(
                 journey,
                 passengers,
                 searchMode);
-        List<Trip> trips = searchResultPage.getRailTrips();
-        Assert.assertTrue("Ничего не найдено по направлению " + journey.getOriginLocation() + " - " + journey.getDestinationLocation(), trips.size()>0);
-
-
-        for (Trip trip : trips){
-            System.out.println(trip);
-        }
+        Trip desireTrip = new Trip().withTrainNumber("020У")
+                .withTransporterName("РЖД")
+                .withCarriageType("Купейный")
+                .withTariffType("1У");
+//        Assert.assertTrue("Ничего не найдено по направлению " + journey.getOriginLocation() + " - " + journey.getDestinationLocation(), trips.size()>0);
+        BookFormPageUFSBuilder preBookingPage = searchResultPage.chooseTripByDesireTripOptions(desireTrip);
+        $(By.xpath(".//*[@id='book_request_passengers_17_surname']")).waitUntil(Condition.appear,10000);
     }
 
 

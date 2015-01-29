@@ -25,8 +25,8 @@ public class Tests {
     }
 
     public static void main(String[] args) {
-
-
+        char c=(char)1051;
+        System.out.print(c);
 
 //        String s = "1 123.36 USD";
 //        Double d = Double.parseDouble(s.replaceAll("[a-zA-Z]+", ""));
@@ -37,15 +37,6 @@ public class Tests {
 //        System.out.println("EUR: " + dbItem.getCurrencyRate("EUR"));
 //        System.out.println("USD: " + dbItem.getCurrencyRate("USD"));
 
-        List<String> assigners = new ArrayList<String>();
-        Collections.addAll(assigners,"Igor", "Vitalii", "Yura","Lesha","Edgar","Matros","Bakhtiozin");
-        Random randomGenerator = new Random();
-        int size = assigners.size();
-//        for (int i = 0; i < size; i++) {
-//            randomGenerator.nextInt(assigners.get(i));
-//        }
-//        int randomInt = randomGenerator.nextInt(assigners.length);
-//        System.out.println(assigners[randomInt]);
 
 
 

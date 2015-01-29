@@ -3,5 +3,5 @@ package ui.pages;
 /**
  * Created by bakhtiozin on 23.01.2015.
  */
-public class PreBookingPageTF extends PreBookingPage {
+public class BookFormPageUFSBuilder extends BookFormPageBuilder {
 }

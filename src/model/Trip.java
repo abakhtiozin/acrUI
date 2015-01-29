@@ -12,10 +12,39 @@ public class Trip {
     private String arrivalTime;
     private String duration;
     private String minAmount;
+    private String tariffType;
+
+    public String getTariffType() {
+        return tariffType;
+    }
+
+    public String getCarriageType() {
+        return carriageType;
+    }
+
+    public String getTrainNumber() {
+        return trainNumber;
+    }
+
+    public String getTransporterName() {
+        return transporterName;
+    }
+
+    private String carriageType;
 
 
     public Trip withTransporterName(String transporterName){
         this.transporterName = transporterName;
+        return this;
+    }
+
+    public Trip withTariffType(String tariffType){
+        this.tariffType = tariffType;
+        return this;
+    }
+
+    public Trip withCarriageType(String carriageType){
+        this.carriageType = carriageType;
         return this;
     }
 
