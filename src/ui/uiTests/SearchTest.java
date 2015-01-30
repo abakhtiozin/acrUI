@@ -59,6 +59,7 @@ public class SearchTest {
 
     @Test
     public void userCanLoginByUsername() {
+
         List<Passenger> passengers = new ArrayList<Passenger>();
         Passenger mihail = new Passenger("12.12.1990").withSurname("rakotaKrab");
         Collections.addAll(passengers, mihail);
@@ -72,9 +73,6 @@ public class SearchTest {
                 .withTransporterName("РЖД")
                 .withCarriageType("Купейный")
                 .withTariffType("1У");
-//        Assert.assertTrue("Ничего не найдено по направлению " + journey.getOriginLocation() + " - " + journey.getDestinationLocation(), trips.size()>0);
-
-        
         BookFormPage bookFormPage = searchResultPage.chooseTripByDesireTripOptions(desireTrip, Supplier.UFS);
         bookFormPage.addPassenger(mihail);
 
