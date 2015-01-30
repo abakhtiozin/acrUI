@@ -72,7 +72,7 @@ public class SearchResultPage extends InnerPage {
         return trips;
     }
 
-    public BookFormPageUFSBuilder chooseTripByDesireTripOptions(Trip desireTrip){
+    public void chooseTripByDesireTripOptions(Trip desireTrip){
         for (int i = 1; i <= $$(By.xpath(".//*[@id='replacedContent']/table/tbody/tr[@class='trainInfo supplierType-rail']")).size(); i++) {
             if (tripButton(i).getText().equals(desireTrip.getTrainNumber()) && transporterName(i).equals(desireTrip.getTransporterName())){
                 tripButton(i).click();
@@ -82,7 +82,7 @@ public class SearchResultPage extends InnerPage {
                 orderButton(i, desireTrip.getTariffType()).followLink();
             }
         }
-        return page(BookFormPageUFSBuilder.class);
+//        return page(BookFormPageUFSBuilder.class);
     }
 
     @Override

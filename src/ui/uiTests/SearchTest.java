@@ -8,6 +8,9 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 import ui.pages.*;
+import ui.pages.BookFormPage.BookFormPage;
+import ui.pages.BookFormPage.BookFormPageUFSBuilder;
+import ui.pages.BookFormPage.GetBookFormPage;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,15 +57,11 @@ public class SearchTest {
         };
     }
 
-
     @Test
     public void userCanLoginByUsername() {
         List<Passenger> passengers = new ArrayList<Passenger>();
-        Collections.addAll(passengers,
-                new Passenger("12.12.1990"),
-                new Passenger("01.01.1963"),
-                new Passenger("02.07.1962")
-        );
+        Passenger mihail = new Passenger("12.12.1990").withSurname("rakotaKrab");
+        Collections.addAll(passengers, mihail);
         Journey journey = new Journey("MOW", "LED","10.02.2015",0,24);
         SearchMode searchMode = new SearchMode().toRussianSystem();
         SearchResultPage searchResultPage = journeySearchPage.search(
@@ -74,10 +73,16 @@ public class SearchTest {
                 .withCarriageType("Купейный")
                 .withTariffType("1У");
 //        Assert.assertTrue("Ничего не найдено по направлению " + journey.getOriginLocation() + " - " + journey.getDestinationLocation(), trips.size()>0);
-        BookFormPageUFSBuilder preBookingPage = searchResultPage.chooseTripByDesireTripOptions(desireTrip);
+        searchResultPage.chooseTripByDesireTripOptions(desireTrip);
+        BookFormPageUFSBuilder bookFormPageUFSBuilder = new BookFormPageUFSBuilder();
+        GetBookFormPage pageConstructor = new GetBookFormPage();
+        pageConstructor.SetBookFormBuilder(bookFormPageUFSBuilder);
+        pageConstructor.constructBookFormPage();
+        BookFormPage bookFormPage = pageConstructor.getBookFormPage();
+        bookFormPage.addPassenger(mihail);
+
         $(By.xpath(".//*[@id='book_request_passengers_17_surname']")).waitUntil(Condition.appear,10000);
     }
-
 
     @Test
     public void deletingPassengersTest(){

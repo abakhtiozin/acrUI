@@ -1,0 +1,80 @@
+{
+  "authSessionId": "RR-LOCAL_51345b7b389ecd7eb44a94da650ac374",
+  "backendApiToken": "ed02a652b96f90b6b47bab976bbad8bc907ee4ca",
+  "accessToWebServices": true,
+  "accessToRuRailDistribModel": true,
+  "ufsDistribModel": {
+    "access": {
+      "url": "https:\/\/www.ufs-online.ru\/webservices\/rzhd\/",
+      "terminal": "KONTENT_TEST_EMUL",
+      "login": "Kontent",
+      "password": "09839916f"
+    },
+    "commission": {
+      "booking": "10",
+      "refund": "5"
+    }
+  },
+  "accessToRussianRailway": true,
+  "accessToInternationalRailway": false,
+  "accessToLowcostFlight": false,
+  "root.section.contentrail.search": true,
+  "root.section.contentrail.bookings": true,
+  "root.section.contentrail.settings": true,
+  "root.section.contentrail.refund": true,
+  "root.section.contentrail.balance": true,
+  "root.section.contentrail.combinedSearch": true,
+  "root.section.contentrail.distribStatistics": true,
+  "ACCESS_RIGHTS": "root.section.contentrail",
+  "resellerCurrencyCode": "UAH",
+  "amadeusCommissions": {
+    "ufs": {
+      "markup": {
+        "value": 100,
+        "type": "fixed",
+        "currency": "RUB"
+      },
+      "refund": {
+        "value": 50,
+        "type": "fixed",
+        "currency": "RUB"
+      }
+    },
+    "tf": {
+      "markup": {
+        "value": 2.5,
+        "type": "fixed",
+        "currency": "EUR"
+      },
+      "refund": {
+        "value": 1,
+        "type": "fixed",
+        "currency": "EUR"
+      }
+    },
+    "acp": {
+      "markup": {
+        "value": 4,
+        "type": "fixed",
+        "currency": "EUR"
+      },
+      "refund": {
+        "value": 1,
+        "type": "fixed",
+        "currency": "EUR"
+      }
+    },
+    "dbaws": {
+      "markup": {
+        "value": 0,
+        "type": "%",
+        "currency": "EUR"
+      },
+      "refund": {
+        "value": 1,
+        "type": "fixed",
+        "currency": "EUR"
+      }
+    }
+  }
+}

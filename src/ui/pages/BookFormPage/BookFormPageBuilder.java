@@ -1,4 +1,4 @@
-package ui.pages;
+package ui.pages.BookFormPage;
 
 /**
  * Created by bakhtiozin on 29.01.2015.
@@ -19,4 +19,6 @@ public abstract class BookFormPageBuilder {
     {
         BookFormPage = new BookFormPage();
     }
+
+    public abstract void setPassengerLocators();
 }
