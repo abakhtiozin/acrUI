@@ -4,8 +4,10 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 import com.codeborne.selenide.SelenideElement;
+import model.Supplier;
 import model.Trip;
 import org.openqa.selenium.By;
+import ui.pages.BookFormPage.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,10 @@ import java.util.List;
  * Created by AA on 07.01.2015.
  */
 public class SearchResultPage extends InnerPage {
+
+    private BookFormPageUFSBuilder bookFormPageUFSBuilder;
+    private BookFormPageACPBuilder bookFormPageACPBuilder;
+    private BookFormPageTFBuilder bookFormPageTFBuilder;
 
     private List<SelenideElement> railTripsList;
     private List<SelenideElement> offersList;
@@ -72,7 +78,7 @@ public class SearchResultPage extends InnerPage {
         return trips;
     }
 
-    public void chooseTripByDesireTripOptions(Trip desireTrip){
+    public BookFormPage chooseTripByDesireTripOptions(Trip desireTrip, Supplier supplier){
         for (int i = 1; i <= $$(By.xpath(".//*[@id='replacedContent']/table/tbody/tr[@class='trainInfo supplierType-rail']")).size(); i++) {
             if (tripButton(i).getText().equals(desireTrip.getTrainNumber()) && transporterName(i).equals(desireTrip.getTransporterName())){
                 tripButton(i).click();
@@ -82,7 +88,24 @@ public class SearchResultPage extends InnerPage {
                 orderButton(i, desireTrip.getTariffType()).followLink();
             }
         }
-//        return page(BookFormPageUFSBuilder.class);
+        GetBookFormPage pageConstructor = new GetBookFormPage();
+        switch (supplier){
+            case UFS:
+                this.bookFormPageUFSBuilder = new BookFormPageUFSBuilder();
+                pageConstructor.SetBookFormBuilder(this.bookFormPageUFSBuilder);
+                break;
+            case ACP:
+                this.bookFormPageACPBuilder= new BookFormPageACPBuilder();
+                pageConstructor.SetBookFormBuilder(this.bookFormPageACPBuilder);
+                break;
+            case TF:
+                this.bookFormPageTFBuilder = new BookFormPageTFBuilder();
+                pageConstructor.SetBookFormBuilder(this.bookFormPageTFBuilder);
+                break;
+        }
+
+        pageConstructor.constructBookFormPage();
+        return page(pageConstructor.getBookFormPage());
     }
 
     @Override

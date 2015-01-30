@@ -73,12 +73,9 @@ public class SearchTest {
                 .withCarriageType("Купейный")
                 .withTariffType("1У");
 //        Assert.assertTrue("Ничего не найдено по направлению " + journey.getOriginLocation() + " - " + journey.getDestinationLocation(), trips.size()>0);
-        searchResultPage.chooseTripByDesireTripOptions(desireTrip);
-        BookFormPageUFSBuilder bookFormPageUFSBuilder = new BookFormPageUFSBuilder();
-        GetBookFormPage pageConstructor = new GetBookFormPage();
-        pageConstructor.SetBookFormBuilder(bookFormPageUFSBuilder);
-        pageConstructor.constructBookFormPage();
-        BookFormPage bookFormPage = pageConstructor.getBookFormPage();
+
+        
+        BookFormPage bookFormPage = searchResultPage.chooseTripByDesireTripOptions(desireTrip, Supplier.UFS);
         bookFormPage.addPassenger(mihail);
 
         $(By.xpath(".//*[@id='book_request_passengers_17_surname']")).waitUntil(Condition.appear,10000);

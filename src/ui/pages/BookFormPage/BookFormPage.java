@@ -26,7 +26,6 @@ public class BookFormPage extends InnerPage {
         this.passengerFieldsLocators.put("name",passengerName());
         this.passengerFieldsLocators.put("document",passengerDocument());
     }
-
     private SelenideElement passengerBirthDate(){
         return $(By.xpath(".//input[@class='span12 birthDate hasDatepicker']"));
     }
@@ -39,8 +38,6 @@ public class BookFormPage extends InnerPage {
     private SelenideElement passengerDocument(){
         return $(By.xpath(".//input[@class='span12 documentSeriesAndNumber']"));
     }
-
-
     private String locatorPlacesSelectionContent = ".//*[@id='placesSelectionContent']";
 
     private List<SelenideElement> passengers(){
