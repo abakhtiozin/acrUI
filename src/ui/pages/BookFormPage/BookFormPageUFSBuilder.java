@@ -13,41 +13,24 @@ import static com.codeborne.selenide.Selenide.$;
  */
 public class BookFormPageUFSBuilder extends BookFormPageBuilder {
 
-    private Map<String,SelenideElement> passengerFieldsLocators;
-
+    // --------------------------- CONSTRUCTORS ---------------------------
     public BookFormPageUFSBuilder() {
-        passengerFieldsLocators = new HashMap<String, SelenideElement>();
-        this.passengerFieldsLocators.put("tarif",passengerTariff());
-        this.passengerFieldsLocators.put("fathers",passengerFathers());
-        this.passengerFieldsLocators.put("documentType",passengerDocumentType());
-        this.passengerFieldsLocators.put("stateIssuedDocument",passengerStateIssuedDocument());
-        this.passengerFieldsLocators.put("gender",passengerGender());
-        this.passengerFieldsLocators.put("placeOfBirth",passengerPlaceOfBirth());
-    }
-    private SelenideElement passengerTariff(){
-        return $(By.xpath(".//input[@class='span12 tariff']"));
-    }
-    private SelenideElement passengerFathers(){
-        return $(By.xpath(".//input[@class='span12 fathers']"));
-    }
-    private SelenideElement passengerDocumentType(){
-        return $(By.xpath(".//input[@class='span12 documentType']"));
-    }
-    private SelenideElement passengerStateIssuedDocument(){
-        return $(By.xpath(".//input[@class='span12 stateWhichIssuedDocument']"));
-    }
-    private SelenideElement passengerGender(){
-        return $(By.xpath(".//input[@class='span12 gender']"));
-    }
-    private SelenideElement passengerPlaceOfBirth(){
-        return $(By.xpath(".//input[@class='span12 placeOfBirth']"));
+        passengerFieldsLocators = new HashMap<BookFormPageFieldsName, String>();
+        this.passengerFieldsLocators.put(BookFormPageFieldsName.TARIFF, ".//input[@class='span12 tariff']");
+        this.passengerFieldsLocators.put(BookFormPageFieldsName.FATHERS, ".//input[@class='span12 fathers']");
+        this.passengerFieldsLocators.put(BookFormPageFieldsName.DOCUMENT_TYPE, ".//input[@class='span12 documentType']");
+        this.passengerFieldsLocators.put(BookFormPageFieldsName.STATE_ISSUED_DOCUMENT, ".//input[@class='span12 stateWhichIssuedDocument']");
+        this.passengerFieldsLocators.put(BookFormPageFieldsName.GENDER, ".//input[@class='span12 gender']");
+        this.passengerFieldsLocators.put(BookFormPageFieldsName.PLACE_OF_BIRTH, ".//input[@class='span12 placeOfBirth']");
     }
 
+    // ------------------------------ FIELDS ------------------------------
+    private Map<BookFormPageFieldsName, String> passengerFieldsLocators;
 
+    // -------------------------- METHODS --------------------------
 
     @Override
-    public void setPassengerLocators() {
-        BookFormPage.initBasePassengerFieldsLocators();
+    protected void setPassengerLocators() {
         BookFormPage.addPassengerFieldsLocators(passengerFieldsLocators);
     }
       /*

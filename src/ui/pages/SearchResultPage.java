@@ -17,42 +17,44 @@ import java.util.List;
  */
 public class SearchResultPage extends InnerPage {
 
+    // ------------------------------ FIELDS ------------------------------
     private BookFormPageUFSBuilder bookFormPageUFSBuilder;
     private BookFormPageACPBuilder bookFormPageACPBuilder;
     private BookFormPageTFBuilder bookFormPageTFBuilder;
-
     private List<SelenideElement> railTripsList;
     private List<SelenideElement> offersList;
+
+    // ------------------------------ METHODS -----------------------------
+    private String transporterName(int tripIndex) {
+        return $(By.xpath(".//tr[@class='trainInfo supplierType-rail'][" + tripIndex + "]//*[@class='transporterLogoCell']/img")).getAttribute("alt");
+    }
 
     private SelenideElement orderButton(int tripIndex, String tariffType) {
         SelenideElement orderButton = null;
         for (SelenideElement element : offersList) {
-            if (element.find(By.xpath("//td/span[@class='modal-tooltip withTooltip badge']")).getText().equals(tariffType)){
+            if (element.find(By.xpath("//td/span[@class='modal-tooltip withTooltip badge']")).getText().equals(tariffType)) {
                 actions().moveToElement(element.find(By.xpath("//td/span[@class='modal-tooltip withTooltip badge']"))).build().perform();
                 orderButton = element.find(By.xpath("//td[@class='orderCell']/a"));
+//                actions().moveToElement(orderButton).build().perform();
                 break;
             }
         }
         return orderButton;
     }
 
-    private void setTripOffersList(int tripIndex){
+    private void setTripOffersList(int tripIndex) {
         this.offersList = $$(By.xpath("//*[@id='replacedContent']/table/tbody/tr[" + tripIndex + "]/td/div/table//*[@class='tab-content']/div[contains(@class,'active')]//tbody/tr"));
     }
 
-    private void waitUntilTripDetailsLoaderDisappear(int tripIndex){
-        $(By.xpath(".//*[@id='replacedContent']/table/tbody/tr[" + tripIndex + "]/td/div/table/tbody//img[@class='loader']")).waitUntil(disappear,10000);
+    private void waitUntilTripDetailsLoaderDisappear(int tripIndex) {
+        $(By.xpath(".//*[@id='replacedContent']/table/tbody/tr[" + tripIndex + "]/td/div/table/tbody//img[@class='loader']")).waitUntil(disappear, 10000);
     }
 
-    private SelenideElement tripButton(int tripIndex){
+    private SelenideElement tripButton(int tripIndex) {
         return $(By.xpath(".//tr[@class='trainInfo supplierType-rail'][" + tripIndex + "]//*[@class='changesCell']//button"));
     }
 
-    private String transporterName(int tripIndex){
-        return $(By.xpath(".//tr[@class='trainInfo supplierType-rail'][" + tripIndex + "]//*[@class='transporterLogoCell']/img")).getAttribute("alt");
-    }
-
-    private SelenideElement moreTripDetailsButton(int tripIndex){
+    private SelenideElement moreTripDetailsButton(int tripIndex) {
         return $(By.xpath(".//*[@id='replacedContent']/table/tbody/tr[" + tripIndex + "]//tr[@class='groupMore']//button"));
     }
 
@@ -78,32 +80,32 @@ public class SearchResultPage extends InnerPage {
         return trips;
     }
 
-    public BookFormPage chooseTripByDesireTripOptions(Trip desireTrip, Supplier supplier){
+    public BookFormPage chooseTripByDesireTripOptions(Trip desireTrip, Supplier supplier) {
         for (int i = 1; i <= $$(By.xpath(".//*[@id='replacedContent']/table/tbody/tr[@class='trainInfo supplierType-rail']")).size(); i++) {
-            if (tripButton(i).getText().equals(desireTrip.getTrainNumber()) && transporterName(i).equals(desireTrip.getTransporterName())){
+            if (tripButton(i).getText().equals(desireTrip.getTrainNumber()) && transporterName(i).equals(desireTrip.getTransporterName())) {
                 tripButton(i).click();
                 moreTripDetailsButton(i).click();
                 waitUntilTripDetailsLoaderDisappear(i);
                 setTripOffersList(i);
+//                orderButton(i, desireTrip.getTariffType()).click();
                 orderButton(i, desireTrip.getTariffType()).followLink();
             }
         }
         GetBookFormPage pageConstructor = new GetBookFormPage();
-        switch (supplier){
+        switch (supplier) {
             case UFS:
                 this.bookFormPageUFSBuilder = new BookFormPageUFSBuilder();
-                pageConstructor.SetBookFormBuilder(this.bookFormPageUFSBuilder);
+                pageConstructor.setBookFormBuilder(this.bookFormPageUFSBuilder);
                 break;
             case ACP:
-                this.bookFormPageACPBuilder= new BookFormPageACPBuilder();
-                pageConstructor.SetBookFormBuilder(this.bookFormPageACPBuilder);
+                this.bookFormPageACPBuilder = new BookFormPageACPBuilder();
+                pageConstructor.setBookFormBuilder(this.bookFormPageACPBuilder);
                 break;
             case TF:
                 this.bookFormPageTFBuilder = new BookFormPageTFBuilder();
-                pageConstructor.SetBookFormBuilder(this.bookFormPageTFBuilder);
+                pageConstructor.setBookFormBuilder(this.bookFormPageTFBuilder);
                 break;
         }
-
         pageConstructor.constructBookFormPage();
         return page(pageConstructor.getBookFormPage());
     }
@@ -113,34 +115,9 @@ public class SearchResultPage extends InnerPage {
         return false;
     }
 
-//    private Trip convertRowToTrip(SelenideElement tripElement){
-//
-//    }
-
-    /*
-    private User convertRowToUser(WebElement row) {
-List<WebElement> cells = row.findElements(By.tagName("td"));
-return new User()
-.withName(cells.get(1).getText())
-.withEmail(cells.get(2).getText())
-.withRole(cells.get(3).getText());
-}
-     */
 
 //#replacedContent>table.tripList>tbody>tr.trainInfo.supplierType-rail
 //.changesCell>*>button>.caret
-    /*
-        $(By.xpath(".//*[@id='replacedContent']/table/tbody//tr//button[contains(.,'91')]")).click();
-        $(By.xpath(".//*[@id='replacedContent']/table/tbody/tr[1]//tr[@class='groupMore']//button")).click();
-        $(By.xpath(".//*[@id='replacedContent']/table/tbody/tr[1]/td/div/table//a[contains(.,'1 class')]")).click();
-        Data_test data_test = new Data_test(arrivalCity, originCity);
-        $(By.xpath(".//*[@id='replacedContent']/table/tbody/tr[1]/td/table/tbody/tr/td[@class='priceCell priceText']//strong")).shouldHave(exactText(data_test.getPrice()));
-        System.out.println("Актуальный результат B2B " + data_test.getPrice());
 
-        actions().moveToElement($(By.xpath("//*[@id='replacedContent']/table/tbody/tr[1]/td/div/table//*[@class='tab-content']//tbody/tr/*[contains(.,'"+data_test.getOfferName()+"')]"))).build().perform();
-        $(By.xpath("//*[@id='replacedContent']/table/tbody/tr[1]/td/div/table//*[@class='tab-content']//tbody/tr/*[contains(.,'"+data_test.getOfferName()+"')]/parent::tr/td[@class='orderCell']/a")).click();
-        $(By.xpath(".//*[@id='book_request_doBooking']")).click();
-        $(By.xpath(".//*[@id='replacedContent']/div/h2[text()='Заказ:']")).waitUntil(appear,15000);
-     */
 
 }

@@ -5,20 +5,23 @@ package ui.pages.BookFormPage;
  */
 public abstract class BookFormPageBuilder {
 
-    public BookFormPage getBookFormPage() {
+    // ------------------------------ FIELDS ------------------------------
+    protected BookFormPage BookFormPage;
+
+
+    // ------------------------------ METHODS -----------------------------
+
+    protected BookFormPage getBookFormPage() {
         return BookFormPage;
     }
 
-    public void setBookFormPage(BookFormPage bookFormPage) {
+    protected void setBookFormPage(BookFormPage bookFormPage) {
         BookFormPage = bookFormPage;
     }
 
-    public BookFormPage BookFormPage;
-
-    public void CreateNewBookFormPage()
-    {
+    protected void CreateNewBookFormPage() {
         BookFormPage = new BookFormPage();
     }
 
-    public abstract void setPassengerLocators();
+    protected abstract void setPassengerLocators();
 }

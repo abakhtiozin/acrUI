@@ -31,12 +31,6 @@ public class Journey {
         return originLocation;
     }
 
-//    public Journey(String originLocation, String destinationLocation, String originDate) {
-//        this.originDate = originDate;
-//        this.originLocation = originLocation;
-//        this.destinationLocation = destinationLocation;
-//    }
-
     public Journey(String originLocation, String destinationLocation, String originDate, int originTimeFrom, int originTimeTo) {
         this.originLocation = originLocation;
         this.originDate = originDate;

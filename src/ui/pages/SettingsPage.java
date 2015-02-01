@@ -3,7 +3,7 @@ package ui.pages;
 /**
  * Created by bakhtiozin on 16.01.2015.
  */
-public class SettingPage extends InnerPage{
+public class SettingsPage extends InnerPage {
     @Override
     public boolean onThisPage() {
         return false;

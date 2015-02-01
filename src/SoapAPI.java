@@ -1,6 +1,6 @@
 import model.Reseller;
 import model.Journey;
-import model.Passenger;
+import model.passenger.Passenger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -38,7 +38,7 @@ public class SoapAPI {
 
     //Constructor
     // Create SOAP Connection
-    public SoapAPI(){
+    public SoapAPI() {
         try {
             SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
             soapConnection = soapConnectionFactory.createConnection();
@@ -48,8 +48,8 @@ public class SoapAPI {
     }
 
     // Send SOAP Message to SOAP Server
-    public void sendRequest(SoapOperations operation){
-        if (operation.equals(SoapOperations.JourneySearch)){
+    public void sendRequest(SoapOperations operation) {
+        if (operation.equals(SoapOperations.JourneySearch)) {
             try {
                 soapResponse = soapConnection.call(journeySearchRequest(reseller, journey, passengers), url);
                 soapResponse.writeTo(System.out);
@@ -91,11 +91,11 @@ public class SoapAPI {
     </access>
     */
     private SOAPElement addAccess(SOAPElement actionRootElement, Reseller reseller) throws SOAPException {
-            SOAPElement soapElement = actionRootElement.addChildElement("access");
-            addElementWithValue(soapElement, "resellerCode", reseller.getResellerCode());
-            addElementWithValue(soapElement, "userName", reseller.getUserName());
-            addElementWithValue(soapElement, "password", reseller.getPassword());
-            addElementWithValue(soapElement, "lang", reseller.getLang());
+        SOAPElement soapElement = actionRootElement.addChildElement("access");
+        addElementWithValue(soapElement, "resellerCode", reseller.getResellerCode());
+        addElementWithValue(soapElement, "userName", reseller.getUserName());
+        addElementWithValue(soapElement, "password", reseller.getPassword());
+        addElementWithValue(soapElement, "lang", reseller.getLang());
         return soapElement;
     }
 
@@ -124,36 +124,36 @@ public class SoapAPI {
     </passenger>
      */
 
-    private void addPassenger(SOAPElement passengersElement, Passenger passenger) throws SOAPException {
-        SOAPElement passengerElement = passengersElement.addChildElement("passenger");
-        if (passenger.getBirthDate() != null){
-            addElementWithValue(passengerElement, "birthDate", passenger.getBirthDate().toString());
-        }
-        if (passenger.getSalutation() != null){
-            addElementWithValue(passengerElement, "salutation", passenger.getSalutation());
-        }
-        if (passenger.getSalutation() != null){
-            addElementWithValue(passengerElement, "name", passenger.getName());
-        }
-        if (passenger.getSurname() != null){
-            addElementWithValue(passengerElement, "surname", passenger.getSurname());
-        }
-        if (passenger.getDocumentType() > 0){
-            addElementWithValue(passengerElement, "documentType", Integer.toString(passenger.getDocumentType()));
-        }
-        if (passenger.getDocumentNumber() != null){
-            addElementWithValue(passengerElement, "documentNumber", passenger.getDocumentNumber());
-        }
-        if (passenger.getBirthPlace() != null){
-            addElementWithValue(passengerElement, "birthPlace", passenger.getBirthPlace());
-        }
-        if (passenger.getNationality() != null){
-            addElementWithValue(passengerElement, "nationality", passenger.getNationality());
-        }
-        if (passenger.getResidence() != null){
-            addElementWithValue(passengerElement, "residence", passenger.getResidence());
-        }
-    }
+//    private void addPassenger(SOAPElement passengersElement, Passenger passenger) throws SOAPException {
+//        SOAPElement passengerElement = passengersElement.addChildElement("passenger");
+//        if (passenger.getBirthDate() != null) {
+//            addElementWithValue(passengerElement, "birthDate", passenger.getBirthDate().toString());
+//        }
+//        if (passenger.getSalutation() != null) {
+//            addElementWithValue(passengerElement, "salutation", passenger.getSalutation());
+//        }
+//        if (passenger.getSalutation() != null) {
+//            addElementWithValue(passengerElement, "name", passenger.getName());
+//        }
+//        if (passenger.getSurname() != null) {
+//            addElementWithValue(passengerElement, "surname", passenger.getSurname());
+//        }
+//        if (passenger.getDocumentType() > 0) {
+//            addElementWithValue(passengerElement, "documentType", Integer.toString(passenger.getDocumentType()));
+//        }
+//        if (passenger.getDocumentNumber() != null) {
+//            addElementWithValue(passengerElement, "documentNumber", passenger.getDocumentNumber());
+//        }
+//        if (passenger.getBirthPlace() != null) {
+//            addElementWithValue(passengerElement, "birthPlace", passenger.getBirthPlace());
+//        }
+//        if (passenger.getNationality() != null) {
+//            addElementWithValue(passengerElement, "nationality", passenger.getNationality());
+//        }
+//        if (passenger.getResidence() != null) {
+//            addElementWithValue(passengerElement, "residence", passenger.getResidence());
+//        }
+//    }
 
     private void addElementWithValue(SOAPElement parentElement, String childElementName, String value) throws SOAPException {
         parentElement.addChildElement(childElementName).addTextNode(value);
@@ -174,7 +174,7 @@ public class SoapAPI {
         addOriginDestinationSearch(soapBodyElem);
         SOAPElement passengersElement = soapBodyElem.addChildElement("passengers");
         for (int i = 0; i < passengers.size(); i++) {
-            addPassenger(passengersElement, passengers.get(i));
+//            addPassenger(passengersElement, passengers.get(i));
         }
 
         MimeHeaders headers = soapMessage.getMimeHeaders();

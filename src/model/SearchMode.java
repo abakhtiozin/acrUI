@@ -24,10 +24,12 @@ public class SearchMode {
         this.toRussianSystem = true;
         return this;
     }
+
     public SearchMode toInternationalSystem() {
         this.toInternationalSystem = true;
         return this;
     }
+
     public SearchMode toLowCostSystem() {
         this.toLowCostSystem = true;
         return this;

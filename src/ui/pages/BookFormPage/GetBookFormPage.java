@@ -7,13 +7,15 @@ public class GetBookFormPage {
 
     private BookFormPageBuilder bookFormPageBuilder;
 
-    public void SetBookFormBuilder(BookFormPageBuilder bookFormPageBuilder){
+    public void setBookFormBuilder(BookFormPageBuilder bookFormPageBuilder) {
         this.bookFormPageBuilder = bookFormPageBuilder;
     }
-    public BookFormPage getBookFormPage(){
+
+    public BookFormPage getBookFormPage() {
         return bookFormPageBuilder.getBookFormPage();
     }
-    public void constructBookFormPage(){
+
+    public void constructBookFormPage() {
         bookFormPageBuilder.CreateNewBookFormPage();
         bookFormPageBuilder.setPassengerLocators();
     }

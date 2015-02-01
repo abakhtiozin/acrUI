@@ -1,7 +1,7 @@
 package ui.pages.BookFormPage;
 
 import com.codeborne.selenide.SelenideElement;
-import model.Passenger;
+import model.passenger.Passenger;
 import org.openqa.selenium.By;
 import ui.pages.InnerPage;
 
@@ -17,49 +17,74 @@ import static com.codeborne.selenide.Selenide.$$;
  */
 public class BookFormPage extends InnerPage {
 
-    private Map<String,SelenideElement> passengerFieldsLocators;
+    // ------------------------------ FIELDS ------------------------------
 
-    protected void initBasePassengerFieldsLocators(){
-        passengerFieldsLocators = new HashMap<String, SelenideElement>();
-        this.passengerFieldsLocators.put("birthDate",passengerBirthDate());
-        this.passengerFieldsLocators.put("surname",passengerSurname());
-        this.passengerFieldsLocators.put("name",passengerName());
-        this.passengerFieldsLocators.put("document",passengerDocument());
-    }
-    private SelenideElement passengerBirthDate(){
-        return $(By.xpath(".//input[@class='span12 birthDate hasDatepicker']"));
-    }
-    private SelenideElement passengerSurname(){
-        return $(By.xpath(".//input[@class='span12 surname']"));
-    }
-    private SelenideElement passengerName(){
-        return $(By.xpath(".//input[@class='span12 name']"));
-    }
-    private SelenideElement passengerDocument(){
-        return $(By.xpath(".//input[@class='span12 documentSeriesAndNumber']"));
-    }
-    private String locatorPlacesSelectionContent = ".//*[@id='placesSelectionContent']";
+    private Map<BookFormPageFieldsName, String> passengerFieldsLocators;
 
-    private List<SelenideElement> passengers(){
+    // --------------------------- CONSTRUCTORS ---------------------------
+    public BookFormPage() {
+        passengerFieldsLocators = new HashMap<BookFormPageFieldsName, String>();
+        this.passengerFieldsLocators.put(BookFormPageFieldsName.BIRTH_DATE, ".//input[@class='span12 birthDate hasDatepicker']");
+        this.passengerFieldsLocators.put(BookFormPageFieldsName.SURNAME, ".//input[@class='span12 surname']");
+        this.passengerFieldsLocators.put(BookFormPageFieldsName.NAME, ".//input[@class='span12 name']");
+        this.passengerFieldsLocators.put(BookFormPageFieldsName.DOCUMENT, ".//input[@class='span12 documentSeriesAndNumber']");
+    }
+
+    // ------------------------------ Locators ------------------------------
+    public SelenideElement bookingButton() {
+        return $(By.xpath(".//*[@id='book_request_doBooking']"));
+    }
+
+    private List<SelenideElement> passengersElements() {
         return $$(By.xpath(".//div[@class='span3 passengerContainer']"));
     }
 
-    protected void addPassengerFieldsLocators(Map<String, SelenideElement> passengerFieldsLocators){
-        for (Map.Entry<String,SelenideElement> pair : passengerFieldsLocators.entrySet()){
-            this.passengerFieldsLocators.put(pair.getKey(),pair.getValue());
-        }
-    }
-
-    public void addPassenger(Passenger passenger){
-        this.passengerFieldsLocators.get("surname").setValue(passenger.getSurname());
-    }
-
-    private SelenideElement bookInfo(){
+    private SelenideElement bookInfo() {
         return $(By.xpath(".//*[@id='replacedContent']/div[@class='row-fluid']"));
     }
 
-    public SelenideElement bookingButton(){
-        return $(By.xpath(".//*[@id='book_request_doBooking']"));
+    // ------------------------------ METHODS -----------------------------
+    protected void addPassengerFieldsLocators(Map<BookFormPageFieldsName, String> passengerFieldsLocators) {
+        for (Map.Entry<BookFormPageFieldsName, String> pair : passengerFieldsLocators.entrySet()) {
+            this.passengerFieldsLocators.put(pair.getKey(), pair.getValue());
+        }
+    }
+
+    public void addPassengers(List<Passenger> passengers) {
+        for (int i = 0; i < passengers.size(); i++) {
+            for (Map.Entry<BookFormPageFieldsName, String> pair : this.passengerFieldsLocators.entrySet()) {
+                switch (pair.getKey()) {
+                    case SURNAME:
+                        passengersElements().get(i).$(By.xpath(this.passengerFieldsLocators.get(pair.getKey()))).setValue(passengers.get(i).getSurname());
+                        break;
+                    case NAME:
+                        passengersElements().get(i).$(By.xpath(this.passengerFieldsLocators.get(pair.getKey()))).setValue(passengers.get(i).getName());
+                        break;
+                    case DOCUMENT:
+                        passengersElements().get(i).$(By.xpath(this.passengerFieldsLocators.get(pair.getKey()))).setValue(passengers.get(i).getDocumentNumber());
+                        break;
+                    case PLACE_OF_BIRTH:
+                        passengersElements().get(i).$(By.xpath(this.passengerFieldsLocators.get(pair.getKey()))).setValue(passengers.get(i).getBirthPlace());
+                        break;
+                    case TARIFF:
+                        passengersElements().get(i).$(By.xpath(this.passengerFieldsLocators.get(pair.getKey()))).selectOptionByValue(passengers.get(i).getTariffType().toString().toLowerCase());
+                        break;
+                    case STATE_ISSUED_DOCUMENT:
+                        passengersElements().get(i).$(By.xpath(this.passengerFieldsLocators.get(pair.getKey()))).selectOptionByValue(passengers.get(i).getStateIssuedDocument());
+                        break;
+                    case FATHERS:
+                        passengersElements().get(i).$(By.xpath(this.passengerFieldsLocators.get(pair.getKey()))).setValue(passengers.get(i).getFathersName());
+                        break;
+                    case GENDER:
+                        passengersElements().get(i).$(By.xpath(this.passengerFieldsLocators.get(pair.getKey()))).selectOptionByValue(passengers.get(i).getGender().toString().toLowerCase());
+                        break;
+                    case DOCUMENT_TYPE:
+                        passengersElements().get(i).$(By.xpath(this.passengerFieldsLocators.get(pair.getKey()))).selectOptionByValue(passengers.get(i).getDocumentType().toString());
+                        break;
+                }
+            }
+        }
+
     }
 
     @Override

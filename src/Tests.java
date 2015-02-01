@@ -18,14 +18,14 @@ public class Tests {
 
 
     @BeforeSuite
-    public void setSoap(){
+    public void setSoap() {
         soapAPI = new SoapAPI();
 //        soapAPI.setUrl("");
 //        reseller = new Reseller();
     }
 
     public static void main(String[] args) {
-        char c=(char)1051;
+        char c = (char) 1051;
         System.out.print(c);
 
 //        String s = "1 123.36 USD";
@@ -36,9 +36,6 @@ public class Tests {
 //        System.out.println("UAH: " + dbItem.getCurrencyRate("UAH"));
 //        System.out.println("EUR: " + dbItem.getCurrencyRate("EUR"));
 //        System.out.println("USD: " + dbItem.getCurrencyRate("USD"));
-
-
-
 
 
     }
@@ -66,7 +63,7 @@ public class Tests {
 //    }
 
     @AfterSuite
-    public void tearDown(){
+    public void tearDown() {
         soapAPI.closeConnection();
     }
 }

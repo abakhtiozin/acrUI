@@ -2,7 +2,7 @@ package ui.pages;
 
 import com.codeborne.selenide.SelenideElement;
 import model.Journey;
-import model.Passenger;
+import model.passenger.Passenger;
 import model.SearchMode;
 import org.openqa.selenium.By;
 import ui.util.JQueryWorker;
@@ -18,63 +18,75 @@ import java.util.List;
  */
 public class JourneySearchPage extends InnerPage {
 
+    // --------------------------- CONSTRUCTORS ---------------------------
+    // ------------------------------ FIELDS ------------------------------
+    // ------------------------------ METHODS -----------------------------
+
 
     private JQueryWorker jQueryWorker;
 
-    public JourneySearchPage(){
+    public JourneySearchPage() {
         jQueryWorker = new JQueryWorker();
     }
 
-    private SelenideElement resetButton(){
+    public SelenideElement resetButton() {
         return $("#search_query_reset");
     }
-    private SelenideElement searchButton(){
+
+    private SelenideElement searchButton() {
         return $("#search_query_search");
     }
-    private SelenideElement departmentDateField(){
+
+    private SelenideElement departmentDateField() {
         return $("#search_query_departDate");
     }
+
     private SelenideElement destinationLocationField() {
         return $("#search_query_arrivalLocationName");
     }
+
     private SelenideElement originLocationField() {
         return $("#search_query_departLocationName");
     }
-    private List<SelenideElement> passengerBirthDateFields(){
+
+    private List<SelenideElement> passengerBirthDateFields() {
         return $$("div.control-group input.span12.birthDate.hasDatepicker");
     }
-    private SelenideElement toRussianCheckBox(){
+
+    private SelenideElement toRussianCheckBox() {
         return $("#search_query_toRussianSystem");
     }
-    private SelenideElement toInternationalCheckBox(){
+
+    private SelenideElement toInternationalCheckBox() {
         return $("#search_query_toInternationalSystem");
     }
-    private SelenideElement toLowCostCheckBox(){
+
+    private SelenideElement toLowCostCheckBox() {
         return $("#search_query_toLowCostSystem");
     }
 
-    private List<SelenideElement> deletePassengerButtons(){
+    private List<SelenideElement> deletePassengerButtons() {
         return $$(".deletePassenger.btn");
     }
 
-    public JourneySearchPage deletePassenger(Passenger passenger){
+    public JourneySearchPage deletePassenger(Passenger passenger) {
         for (int i = 1; i < passengerBirthDateFields().size(); i++) {
-            if (passengerBirthDateFields().get(i).val().equals(passenger.getBirthDate())){
-                deletePassengerButtons().get(i-1).click();
+            if (passengerBirthDateFields().get(i).val().equals(passenger.getBirthDate())) {
+                deletePassengerButtons().get(i - 1).click();
                 $("#deletePassengerModal>div.modal-footer>button.btn.btn-primary.yes").waitUntil(appear, 5000).click();
             }
         }
         return page(JourneySearchPage.class);
     }
 
-    public JourneySearchPage pressResetButton(){
+    public JourneySearchPage pressResetButton() {
         resetButton().click();
         return page(JourneySearchPage.class);
     }
 
-    public boolean compareFieldsToPassengers(List<Passenger> passengers){
+    public boolean compareFieldsToPassengers(List<Passenger> passengers) {
         for (int i = 1; i < passengers.size(); i++) {
-            if (!passengers.get(i).getBirthDate().equals(passengerBirthDateFields().get(i).val())){
+            if (!passengers.get(i).getBirthDate().equals(passengerBirthDateFields().get(i).val())) {
                 return false;
             }
         }
@@ -116,7 +128,7 @@ public class JourneySearchPage extends InnerPage {
     Ожидаемый результат: кол-во пассажиров и их данные соответствуют тем данным что были при поиске
      */
 
-    public SearchResultPage search(Journey journey, List<Passenger> passengers, SearchMode searchMode){
+    public SearchResultPage search(Journey journey, List<Passenger> passengers, SearchMode searchMode) {
 
         resetButton().click();
         setSearchMode(searchMode);
@@ -134,14 +146,14 @@ public class JourneySearchPage extends InnerPage {
     //set checkboxs
     private void setSearchMode(SearchMode searchMode) {
         if (searchMode.isRussianSystem()) {
-            jQueryWorker.setCheckBoxValue("#"+toRussianCheckBox().getAttribute("id"), true);
-        } else jQueryWorker.setCheckBoxValue("#"+toRussianCheckBox().getAttribute("id"), false);
+            jQueryWorker.setCheckBoxValue("#" + toRussianCheckBox().getAttribute("id"), true);
+        } else jQueryWorker.setCheckBoxValue("#" + toRussianCheckBox().getAttribute("id"), false);
         if (searchMode.isInternationalSystem()) {
-            jQueryWorker.setCheckBoxValue("#"+toInternationalCheckBox().getAttribute("id"), true);
-        } else jQueryWorker.setCheckBoxValue("#"+toInternationalCheckBox().getAttribute("id"), false);
+            jQueryWorker.setCheckBoxValue("#" + toInternationalCheckBox().getAttribute("id"), true);
+        } else jQueryWorker.setCheckBoxValue("#" + toInternationalCheckBox().getAttribute("id"), false);
         if (searchMode.isLowCostSystem()) {
-            jQueryWorker.setCheckBoxValue("#"+toLowCostCheckBox().getAttribute("id"), true);
-        } else jQueryWorker.setCheckBoxValue("#"+toLowCostCheckBox().getAttribute("id"), false);
+            jQueryWorker.setCheckBoxValue("#" + toLowCostCheckBox().getAttribute("id"), true);
+        } else jQueryWorker.setCheckBoxValue("#" + toLowCostCheckBox().getAttribute("id"), false);
     }
 
     private void setTime(int originTimeFrom, int originTimeTo) {
@@ -163,14 +175,12 @@ public class JourneySearchPage extends InnerPage {
         $(By.xpath(".//*[@class='ui-menu-item'][1]//*[contains(.,'" + destinationLocation + "')]")).waitUntil(appear, 5000).click();
     }
 
-    private void addPassenger(Passenger passenger, String cssSelector ){
+    private void addPassenger(Passenger passenger, String cssSelector) {
         jQueryWorker.setDatepicker("#" + cssSelector, passenger.getBirthDate());
     }
 
     public void addPassengers(List<Passenger> passengers) {
         // локатор на элементы birthDate
-//        String cssDatePickerElements = "div.control-group input.span12.birthDate.hasDatepicker";
-
         // если пассажиров в поездке больше чем один то
         if (passengers.size() > 1) {
             for (int i = 0; i < passengers.size(); i++) {

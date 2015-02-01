@@ -16,10 +16,9 @@ public class JQueryWorker {
         executeJavaScript(String.format("$('%s').datepicker('setDate', '%s')", cssSelector, date));
     }
 
-    public void setCheckBoxValue(String cssSelector, boolean checked){
-        executeJavaScript("$( \""+ cssSelector +"\" ).prop( \"checked\", "+ checked +" );");
+    public void setCheckBoxValue(String cssSelector, boolean checked) {
+        executeJavaScript("$( \"" + cssSelector + "\" ).prop( \"checked\", " + checked + " );");
     }
-
 
 
 }

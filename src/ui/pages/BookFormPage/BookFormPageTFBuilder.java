@@ -5,7 +5,7 @@ package ui.pages.BookFormPage;
  */
 public class BookFormPageTFBuilder extends BookFormPageBuilder {
     @Override
-    public void setPassengerLocators() {
+    protected void setPassengerLocators() {
 
     }
 }
