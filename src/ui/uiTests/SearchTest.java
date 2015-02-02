@@ -5,6 +5,7 @@ import model.*;
 import model.passenger.Passenger;
 import model.passenger.PassengerDocumentType;
 import model.passenger.PassengerGender;
+import model.passenger.PassengerTariffType;
 import org.junit.Assert;
 
 
@@ -32,8 +33,8 @@ public class SearchTest {
 
     @BeforeSuite
     public static void setReseller() {
-        baseUrl = "";
-        reseller = new Reseller("", "", "");
+        baseUrl = "http://dev.acr.local";
+        reseller = new Reseller("andrew-usd", "andrew", "1234");
         LoginPage loginPage = open(baseUrl, LoginPage.class);
         journeySearchPage = loginPage.validLogin(reseller);
     }
@@ -61,11 +62,13 @@ public class SearchTest {
     @Test
     public void userCanLoginByUsername() {
         List<Passenger> passengers = new ArrayList<Passenger>();
-        Passenger mihail = new Passenger("12.12.1990").withSurname("Boyarshnik").withName("Mihail").withFathersName("Olegrovich")
+        Passenger mihail = new Passenger("12.12.2005").withSurname("Boyarshnik").withName("Mihail").withFathersName("Olegrovich")
                 .withDocumentNumber("SM897311").withDocumentType(PassengerDocumentType.ЗЗ)
-                .withBirthPlace("Kiev").withGender(PassengerGender.MALE).withStateIssuedDocument("UA");
-        Passenger alexii = new Passenger("12.01.1977").withSurname("Boyarshnik").withName("Alexii").withDocumentNumber("SM897322").withBirthPlace("Moskva");
-        Collections.addAll(passengers, mihail,alexii);
+                .withBirthPlace("Kiev").withGender(PassengerGender.MALE).withStateIssuedDocument("UA").withTariffType(PassengerTariffType.CHILD);
+        Passenger alexii = new Passenger("12.01.1977").withSurname("Boyarshnik").withName("Anna").withFathersName("Olegovna")
+                .withDocumentNumber("SM777777").withDocumentType(PassengerDocumentType.ЗЗ)
+                .withBirthPlace("Kiev").withGender(PassengerGender.FEMALE).withStateIssuedDocument("UA").withTariffType(PassengerTariffType.FULL);
+        Collections.addAll(passengers, mihail, alexii);
         Journey journey = new Journey("MOW", "LED", "10.02.2015", 0, 24);
         SearchMode searchMode = new SearchMode().toRussianSystem();
         SearchResultPage searchResultPage = journeySearchPage.search(
@@ -78,6 +81,7 @@ public class SearchTest {
                 .withTariffType("1У");
         BookFormPage bookFormPage = searchResultPage.chooseTripByDesireTripOptions(desireTrip, Supplier.UFS);
         bookFormPage.addPassengers(passengers);
+        bookFormPage.bookingButton().click();
 
         $(By.xpath(".//*[@id='book_request_passengers_17_surname']")).waitUntil(Condition.appear, 10000);
     }

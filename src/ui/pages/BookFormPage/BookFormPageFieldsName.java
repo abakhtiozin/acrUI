@@ -13,5 +13,7 @@ public enum BookFormPageFieldsName {
     DOCUMENT_TYPE,
     STATE_ISSUED_DOCUMENT,
     GENDER,
-    PLACE_OF_BIRTH
+    PLACE_OF_BIRTH,
+    SALUTATION,
+    COUNTRY
 }

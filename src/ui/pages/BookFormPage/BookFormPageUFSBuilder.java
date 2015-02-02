@@ -16,11 +16,11 @@ public class BookFormPageUFSBuilder extends BookFormPageBuilder {
     // --------------------------- CONSTRUCTORS ---------------------------
     public BookFormPageUFSBuilder() {
         passengerFieldsLocators = new HashMap<BookFormPageFieldsName, String>();
-        this.passengerFieldsLocators.put(BookFormPageFieldsName.TARIFF, ".//input[@class='span12 tariff']");
+        this.passengerFieldsLocators.put(BookFormPageFieldsName.TARIFF, ".//select[@class='span12 tariff']");
         this.passengerFieldsLocators.put(BookFormPageFieldsName.FATHERS, ".//input[@class='span12 fathers']");
-        this.passengerFieldsLocators.put(BookFormPageFieldsName.DOCUMENT_TYPE, ".//input[@class='span12 documentType']");
-        this.passengerFieldsLocators.put(BookFormPageFieldsName.STATE_ISSUED_DOCUMENT, ".//input[@class='span12 stateWhichIssuedDocument']");
-        this.passengerFieldsLocators.put(BookFormPageFieldsName.GENDER, ".//input[@class='span12 gender']");
+        this.passengerFieldsLocators.put(BookFormPageFieldsName.DOCUMENT_TYPE, ".//select[@class='span12 documentType']");
+        this.passengerFieldsLocators.put(BookFormPageFieldsName.STATE_ISSUED_DOCUMENT, ".//select[@class='span12 stateWhichIssuedDocument']");
+        this.passengerFieldsLocators.put(BookFormPageFieldsName.GENDER, ".//select[@class='span12 gender']");
         this.passengerFieldsLocators.put(BookFormPageFieldsName.PLACE_OF_BIRTH, ".//input[@class='span12 placeOfBirth']");
     }
 
