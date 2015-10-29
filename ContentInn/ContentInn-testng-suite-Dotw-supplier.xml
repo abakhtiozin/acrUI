@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+	<suite name="Tests for Dotw Supplier" verbose="1">	
+		<parameter name="supplier"	value="Dotw" />
+		<parameter name="resellerCode"		value="AutoRes1" />
+		<parameter name="resellerUsername"	value="AutoRes1" />
+		<parameter name="resellerPassword"	value="AutoRes1" />
+		<test name="Nearest dates(booking in penalty), one room one traveler no children">
+			<parameter name="city"				value="LONDON"/>
+			<parameter name="rangeCheckIn"		value="0:0"/>
+			<parameter name="rangeNightsCount"	value="1:1"/>
+			<parameter name="rangeRoomsNumber"	value="1:1"/>
+			<parameter name="rangeAdultsNumber"	value="1:1"/>
+			<parameter name="rangeChildAge"		value="0:0"/>    
+			<classes>
+				<class name="test.java.ui.suppliersTesting.DotwSupplierTest"/>
+			</classes>
+				
+		</test>
+		<test name="Nearest dates(booking in penalty)">
+			<parameter name="city"				value="LONDON"/>
+			<parameter name="rangeCheckIn"		value="0:0"/>
+			<parameter name="rangeNightsCount"	value="1:5"/>
+			<parameter name="rangeRoomsNumber"	value="1:3"/>
+			<parameter name="rangeAdultsNumber"	value="2:4"/>
+			<parameter name="rangeChildAge"		value="1:8"/>    
+			<classes>
+				<class name="test.java.ui.suppliersTesting.DotwSupplierTest"/>
+			</classes>				
+		</test>
+		<test name="Future dates, several rooms several travelers no children">
+			<parameter name="city"				value="LONDON"/>
+			<parameter name="rangeCheckIn"		value="40:80"/>
+			<parameter name="rangeNightsCount"	value="1:7"/>
+			<parameter name="rangeRoomsNumber"	value="1:3"/>
+			<parameter name="rangeAdultsNumber"	value="1:4"/>
+			<parameter name="rangeChildAge"		value="0:0"/>    
+			<classes>
+				<class name="test.java.ui.suppliersTesting.DotwSupplierTest"/>
+			</classes>				
+		</test>
+		<test name="Future dates, several rooms several travelers">
+			<parameter name="city"				value="LONDON"/>
+			<parameter name="rangeCheckIn"		value="40:80"/>
+			<parameter name="rangeNightsCount"	value="1:7"/>
+			<parameter name="rangeRoomsNumber"	value="1:3"/>
+			<parameter name="rangeAdultsNumber"	value="2:4"/>
+			<parameter name="rangeChildAge"		value="1:10"/>    
+			<classes>
+				<class name="test.java.ui.suppliersTesting.DotwSupplierTest"/>
+			</classes>				
+		</test>
+		
+	
+	</suite>
+	
+

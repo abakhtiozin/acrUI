@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ContentInn UI tests" verbose="1">
+    <!--test name="AllTests">
+        <packages>
+            <package name="test.java.ui"/>
+        </packages>
+    </test-->
+    <!--test name="AuthenticationTest">
+        <classes>
+            <class name="test.java.ui.AuthenticationTest">
+            </class>
+        </classes>
+    </test-->
+    <!--test name="SearchTest">
+        <classes>
+            <class name="test.java.ui.SearchTest">
+            </class>
+        </classes>
+    </test-->
+    <test name="WorkflowTest">
+        <classes>
+            <class name="test.java.ui.WorkflowTest">
+            </class>
+        </classes>
+    </test>
+</suite>

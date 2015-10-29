@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resellers>
+    <reseller>
+        <resellerCode>autotest</resellerCode>
+        <users>
+            <user>
+                <code>UFS</code>
+                <name>ufs_b2b</name>
+                <password>1234</password>
+            </user>
+            <user>
+                <code>ACP</code>
+                <name>acp_b2b</name>
+                <password>1234</password>
+            </user>
+            <user>
+                <code>TF</code>
+                <name>tf_b2b</name>
+                <password>1234</password>
+            </user>
+            <user>
+                <code>IP</code>
+                <name>ip_b2b</name>
+                <password>1234</password>
+            </user>
+        </users>
+    </reseller>
+    <reseller>
+        <resellerCode>autotestdm</resellerCode>
+        <users>
+            <user>
+                <code>DM</code>
+                <name>dm_b2b</name>
+                <password>1234</password>
+            </user>
+        </users>
+    </reseller>
+</resellers>

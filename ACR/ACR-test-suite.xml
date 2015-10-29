@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="suites" verbose="1">
+    <suite-files>
+        <suite-file path="src/main/resources/suites/workflow-suite.xml"/>
+        <suite-file path="src/main/resources/suites/access-rights-suite.xml"/>
+        <suite-file path="src/main/resources/suites/validation-suite.xml"/>
+    </suite-files>
+    <test name="without package tests">
+        <packages>
+            <package name="test.java.ui.tests.regressionBugs"/>
+            <package name="test.java.ui.tests.other"/>
+        </packages>
+    </test>
+</suite>
+
+
+
